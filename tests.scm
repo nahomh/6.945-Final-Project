@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 (load "load")
 
 (displaym "malcom" 1)
@@ -17,11 +16,11 @@
       (if (eq? 'pass symbol)
         (set! num-passed (+ num-passed 1))
         (begin ; failure
-          (displaym "faile" num-failed)
+          ; (displaym "faile" num-failed)
           (set! num-failed (+ num-failed 1))
           (set! failure-messages (append failure-messages (list message)))
-          (displaym "after fail" num-failed)
-          (displaym "after fail" failure-messages)
+          ; (displaym "after fail" num-failed)
+          ; (displaym "after fail" failure-messages)
         )
       )
     )
@@ -58,6 +57,3 @@
 (test #t "this should pass")
 
 (my-test-suite 'print 'a "")
-=======
-;;Test File 
->>>>>>> nahom/master
