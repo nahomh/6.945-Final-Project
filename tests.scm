@@ -52,6 +52,7 @@
 )
 
 (test #f "this should fail")
+; (test (eq? (note a) ('note 'a4 '1/4)) "should default to default values")
 (test #f "this should also fail")
 (test #f "this should also fail2")
 (test #t "this should pass")
