@@ -1,3 +1,4 @@
+(load "util")
 ; Load file
 
 
@@ -13,4 +14,4 @@
 (load "ghelper.scm")
 (load "generics.scm")
 (load "amb.scm")
-(load "tests.scm")
+; (load "tests.scm")
