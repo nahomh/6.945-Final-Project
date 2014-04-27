@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (load "load")
 
 (displaym "malcom" 1)
@@ -57,3 +58,6 @@
 (test #t "this should pass")
 
 (my-test-suite 'print 'a "")
+=======
+;;Test File 
+>>>>>>> nahom/master
