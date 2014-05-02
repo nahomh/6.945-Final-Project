@@ -6,7 +6,7 @@
 (displaym "malcom" 1)
 (displaym "malcom" 1)
 
-(define (test-suite-wrappera)
+(define (test-suite-wrapper)
   (define num-passed 0)
   (define num-failed 0)
   (define failure-messages '())
@@ -43,18 +43,33 @@
     )
   )
 )
-(define my-test-suite (test-suite-wrappera))
+(define my-test-suite (test-suite-wrapper))
 
-(define (test bool message)
-  (if bool 
-      (my-test-suite 'run 'pass message)
-      (my-test-suite 'run 'fail message))
+(define (test suite) 
+  (lambda (bool message)
+    (if bool 
+        (suite 'run 'pass message)
+        (suite 'run 'fail message))
+  )
 )
 
-(test #f "this should fail")
-; (test (eq? (note a) ('note 'a4 '1/4)) "should default to default values")
-(test #f "this should also fail")
-(test #f "this should also fail2")
-(test #t "this should pass")
+(define nil '())
+(define ttest (test my-test-suite))
+(ttest #f "this should fail")
+(ttest #f "this should also fail")
+(ttest #f "this should also fail2")
+(ttest #t "this should pass")
 
-(my-test-suite 'print 'a "")
+; Test the piece generation
+(define piece-test-suite (test-suite-wrapper))
+(define ptest (test piece-test-suite))
+(ptest #f "piece should fail")
+; (test (eq? (note a) ('note 'a4 '1/4)) "should default to default values")
+
+(define (print-test-suites . suites)
+  (for-each (lambda (suite)
+    (suite 'print nil nil))
+    suites
+  )
+)
+(print-test-suites my-test-suite piece-test-suite)

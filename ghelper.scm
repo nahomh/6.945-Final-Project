@@ -1,4 +1,4 @@
-;;;;           Most General Generic-Operator Dispatch
+;;;; Most General Generic-Operator Dispatch
 
 (declare (usual-integrations))
 
