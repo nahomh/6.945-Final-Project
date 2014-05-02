@@ -61,9 +61,16 @@
 (ttest #t "this should pass")
 
 ; Test the piece generation
+(load "piece.scm")
 (define piece-test-suite (test-suite-wrapper))
 (define ptest (test piece-test-suite))
-(ptest #f "piece should fail")
+
+
+(define piece1 (new-piece))
+(ptest 
+  (eq? (piece1 'get-key) 'c)
+  "Piece Key Defaults To C"
+)
 ; (test (eq? (note a) ('note 'a4 '1/4)) "should default to default values")
 
 (define (print-test-suites . suites)
