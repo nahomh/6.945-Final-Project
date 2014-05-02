@@ -11,6 +11,26 @@
 ; define intervals in terms of semitones
 
 
+; other methods
+; outside of new-piece function
+; interval
+; chord
+; measure
+; transpose
+; invert
+; note
+; is-valid-pitch
+; is-valid-octave
+; is-valid-time-sig
+; measure?
+; chord?
+; interval?
+; note?
+
+(define (is-valid-pitch pitch-str)
+  ; use regex we developed
+)
+
 (define (new-piece #!optional key time)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
@@ -40,19 +60,57 @@
          ((eq? tag 'get-key-sig) key-sig)
          ((eq? tag 'get-time-sig) time-sig)
          ((eq? tag 'get-octave) octave)
-         ((eq? tag 'quote) (m:quote->string (car args)))
-         ((eq? tag 'char-from) (m:char-from->string (car args)))
-         ((eq? tag 'char-not-from) (m:char-not-from->string (car args)))
-         ((eq? tag 'seq) (apply m:seq->string args))
-         ((eq? tag 'alt) (apply m:alt->string args))
-         ((eq? tag 'back-ref) (apply m:back-ref->string args))
-         ((eq? tag 'group) (apply m:group->string args))
-         ((eq? tag 'repeat) (apply m:repeat->string args))
+
+         ((eq? tag 'set-key-sig) key-sig)
+         ((eq? tag 'set-octave) key-sig)
+         ((eq? tag 'set-time-sig) key-sig)
+         ((eq? tag 'get-measures) key-sig)
+         ((eq? tag 'set-measures) key-sig)
+         ((eq? tag 'add) key-sig)
+         ((eq? tag 'repeat) key-sig)
          (else (displaym "ERROR: \n\t Method Not Found" tag))
     )
   )
 
   ; generic dispatch
+  (define no-op (lambda (a) #f))
 
+  ; key operations
+  (define (update-key key)
+    ; update the key signature with (string) key
+    ; validate first
+    ; (is-valid-pitch)
+    (set! key-sig (string->symbol key))
+  )
+  (define key:update
+    (make-generic-operator 1))
+
+  (defhandler key:update 
+    update-key string?)
+  (defhandler key:update 
+    (lambda (x) (update-key (symbol->string x))) symbol?)
+  (defhandler key:update no-op default-object?)
+
+  ; octave operations
+  ; taken from the key
+  (define octave:update
+    (make-generic-operator 1))
+  (defhandler octave:update (lambda(x) (set! octave-sig (string->symbol x))) string?)
+  (defhandler octave:update (lambda(x) (set! octave-sig x)) symbol?)
+  (defhandler octave:update no-op default-object?)
+
+
+  ; time signature operations
+  ; "1/4" '1/4 
+  (define time-sig:update
+    (make-generic-operator 1))
+  (defhandler time-sig:update (lambda(x) (set! time-sig-sig (string->symbol x))) string?)
+  (defhandler time-sig:update (lambda(x) (set! time-sig-sig x)) symbol?)
+  (defhandler time-sig:update no-op default-object?)
+
+
+  (key:update key)
+  ; (octave:update key)
+  ; (time-sig:update time)
   method-dispatch
 )
