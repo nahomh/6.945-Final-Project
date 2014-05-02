@@ -19,16 +19,17 @@
 ; transpose
 ; invert
 ; note
-; is-valid-pitch
-; is-valid-octave
-; is-valid-time-sig
+; valid-pitch?
+; valid-octave?
+; valid-time-sig?
 ; measure?
 ; chord?
 ; interval?
 ; note?
 
-(define (is-valid-pitch pitch-str)
+(define (valid-pitch? pitch-str)
   ; use regex we developed
+  #f
 )
 
 (define (new-piece #!optional key time)
@@ -61,10 +62,10 @@
          ((eq? tag 'get-time-sig) time-sig)
          ((eq? tag 'get-octave) octave)
 
+         ((eq? tag 'get-measures) key-sig)
          ((eq? tag 'set-key-sig) key-sig)
          ((eq? tag 'set-octave) key-sig)
          ((eq? tag 'set-time-sig) key-sig)
-         ((eq? tag 'get-measures) key-sig)
          ((eq? tag 'set-measures) key-sig)
          ((eq? tag 'add) key-sig)
          ((eq? tag 'repeat) key-sig)
@@ -76,20 +77,20 @@
   (define no-op (lambda (a) #f))
 
   ; key operations
-  (define (update-key key)
+  (define (update-key! key)
     ; update the key signature with (string) key
     ; validate first
     ; (is-valid-pitch)
     (set! key-sig (string->symbol key))
   )
-  (define key:update
+  (define key:update!
     (make-generic-operator 1))
 
-  (defhandler key:update 
-    update-key string?)
-  (defhandler key:update 
-    (lambda (x) (update-key (symbol->string x))) symbol?)
-  (defhandler key:update no-op default-object?)
+  (defhandler key:update! 
+    update-key! string?)
+  (defhandler key:update! 
+    (lambda (x) (update-key! (symbol->string x))) symbol?)
+  (defhandler key:update! no-op default-object?)
 
   ; octave operations
   ; taken from the key
@@ -109,7 +110,7 @@
   (defhandler time-sig:update no-op default-object?)
 
 
-  (key:update key)
+  (key:update! key)
   ; (octave:update key)
   ; (time-sig:update time)
   method-dispatch
