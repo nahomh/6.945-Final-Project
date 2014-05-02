@@ -37,9 +37,9 @@
   ; method dispatch
   (define (method-dispatch tag . args)
     (cond 
-         ((eq? tag 'get-key) key-sig)
-         ((eq? tag 'dot) (m:dot->string))
-         ((eq? tag 'eol) (m:eol->string))
+         ((eq? tag 'get-key-sig) key-sig)
+         ((eq? tag 'get-time-sig) time-sig)
+         ((eq? tag 'get-octave) octave)
          ((eq? tag 'quote) (m:quote->string (car args)))
          ((eq? tag 'char-from) (m:char-from->string (car args)))
          ((eq? tag 'char-not-from) (m:char-not-from->string (car args)))
