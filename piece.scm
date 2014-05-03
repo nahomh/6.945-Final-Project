@@ -46,7 +46,7 @@
   ; key handle string, symbol
   (define-cell time)
   (eq-put! time 'type 'time)
-  (eq-put! time 'data '4/4)
+  (eq-put! time 'data "4/4")
   ; generic time 
   ; defaults to 4/4
   ; (define time "")
@@ -87,9 +87,9 @@
     (or (symbol? data) (string? data)))
 
   (define (time-type? data)
-    ; only symbols and strings
+    ; only strings
     ; with the proper structure
-    (or (symbol? data) (string? data)))
+    (string? data))
   (define (octave-type? data)
     ; numbers or symbols and strings
     ; that can become numbers
@@ -128,6 +128,8 @@
     (let  (
             (coerced-val (coerce type value))
           )
+          (displaym "set-data cell" cell)
+          (displaym "set-data type" type)
           (displaym "set-data coerced" coerced-val)
           (if (not (eqv? #f coerced-val))
             (eq-put! cell 'data coerced-val)
@@ -197,8 +199,10 @@
   ; (defhandler time:update (lambda(x) (set! time-sig x)) symbol?)
   ; (defhandler time:update no-op default-object?)
 
-
   (set 'key key-sig)
+  (displaym "Before" (get 'time))
+  (set 'time time-sig)
+  (displaym "After" (get 'time))
   ; (octave:update key)
   ; (time:update time)
   method-dispatch

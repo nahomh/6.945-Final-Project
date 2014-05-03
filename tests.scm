@@ -91,7 +91,7 @@
   "Piece Key Defaults To C"
 )
 (ptest 
-  (eq? (piece1 'get 'time) '4/4)
+  (equal? (piece1 'get 'time) "4/4")
   "Piece Time Signature Defaults To 4/4"
 )
 (ptest 
@@ -105,14 +105,14 @@
   (eq? (piece2 'get 'key) 'd)
   "Piece Key Takes Input Value"
 )
-; (ptest 
-;   (eq? (piece2 'get-time-sig) '2/4)
-;   "Piece Time Signature Takes Input Value"
-; )
-; (ptest 
-;   (= (piece2 'get-octave) 4)
-;   "Piece Octave Defaults To 4"
-; )
+(ptest 
+  (equal? (piece2 'get 'time) "2/4")
+  "Piece Time Signature Takes Input Value"
+)
+(ptest 
+  (= (piece2 'get 'octave) 4)
+  "Piece Octave Defaults To 4"
+)
 
 ; ; test key parsing
 ; (define piece3 (new-piece 'dbb))
