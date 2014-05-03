@@ -324,7 +324,9 @@
 (define note-test-suite (test-suite-wrapper "Note Operations Suite"))
 (define notest (test note-test-suite))
 
-
+(notest
+  (eq? (is-middle? #\C 4 '("#" 0)) #t)
+    "is-middle should return true for C4 with 0 sharp/flats")
 
 
 
@@ -343,4 +345,5 @@
   valid-pitch-test-suite
   valid-octave-test-suite
   valid-time-test-suite
-  pitch-ops-test-suite)
+  pitch-ops-test-suite
+  note-test-suite)
