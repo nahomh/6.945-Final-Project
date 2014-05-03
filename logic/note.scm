@@ -28,10 +28,11 @@
 
 (define (empty-note)
   (define-cell note)
+  (eq-put! note 'type 'note)
   (eq-put! note 'pitch 'C)
   (eq-put! note 'duration 0.25)
   (eq-put! note 'octave 4)
-  (eq-put! note 'accent '())
+  (eq-put! note 'accent '()))
 
 
 (define (create-note pitch-string duration)
@@ -86,7 +87,13 @@
         'data
         (+ octave current-octave)))
     note)
-  note? octave?)
+  note? valid-octave?)
+
+(define note? note
+  (if (cell? note)
+    (eq? 'note (eq-get note 'type))
+    #f))
+
 
 (define (compare-notes note1 note2)
   (< (get-cent note1) (get-cent note2)))
