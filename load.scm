@@ -6,7 +6,8 @@
 (load "generics.scm")
 (load "amb.scm")
 (load "util")
-
+(load "regexp.scm")
+(load-option 'regular-expression)
 ; load all the logic files for the enviornment
 (cd "./logic")
 (load "chord.scm")
