@@ -31,7 +31,7 @@
 ;   Blue        0;34     Light Blue    1;34
 ;   Green       0;32     Light Green   1;32
 ;   Cyan        0;36     Light Cyan    1;36
-;   Red         0;31     Light Red     1;31
+    ;   Red         0;31     Light Red     1;31*sc
 ;   Purple      0;35     Light Purple  1;35
 ;   Brown       0;33     Yellow        1;33
 ;   Light Gray  0;37     White         1;37
@@ -98,6 +98,23 @@
   (= (piece1 'get 'octave) 4)
   "Piece Octave Defaults To 4"
 )
+
+;test pitch regexp
+
+(ptest
+  (eq? (valid-pitch? "A-2") #f) "Negative signs detected")
+
+(ptest
+  (not (eq? (valid-pitch? "A2") #f)) "Valid pitch accepted")
+
+(ptest
+  (eq? (valid-pitch? "Zbb3") #f) "Illegal letters detected")
+
+(ptest
+  (eq? (valid-pitch? "ABcb3") #f) "Multiple letters detected")
+
+(ptest
+  (not (eq? (valid-pitch? "g#b###532") #f)) "Multiple sharps and flats accepted")
 
 ; test different keys and time signatures
 (define piece2 (new-piece 'd "2/4"))

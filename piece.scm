@@ -3,7 +3,6 @@
 ; This is the main file for the system allowing the user to
 ; call the enviornment and began to input musical notes and chords. 
 (load "load")
-
 ; going to use notes in midi, need one value
 (define c0midi 0)
 (define semitone 100) ; cents
@@ -32,8 +31,7 @@
 ; 
 
 (define (valid-pitch? pitch-str)
-  ; use regex we developed
-  #f
+  (re-string-match (rexp-compile (rexp-pitch)) pitch-str)
 )
 
 (define (new-piece #!optional key-sig time-sig)
