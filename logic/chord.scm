@@ -16,24 +16,27 @@
 
 (define (empty-chord)
  (define-cell chord)
- (eq-put! chord 'type 'notes)
+ (eq-put! chord 'type 'chord)
  (eq-put! chord 'data '())
  chord)
 
 ;Check if notes is actually a list of notes
 (define (create-chord . notes)
-  (if (< (length notes) 3)
-    "Must have three or more notes in a chord"
-    (let ((new-chord (empty-chord)))
-      (eq-put! new-chord 'data notes)
-    new-chord)))
+  (cond 
+    ((< (length notes) 3)
+      "Must have three or more notes in a chord")
+    ((not (valid-notes? notes))
+      "The set of notes passed in aren't valid")
+    (else
+      (let ((new-chord (empty-chord)))
+        (eq-put! new-chord 'data notes)
+      new-chord))))
 
 
 (define (first-inversion chord)
   (let ((notes (sort-notes (eq-get chord 'data))))
     (eq-put! 
       chord
-      notes
       'data
       (cons (add (car notes) 1) (cdr notes))))
   chord)

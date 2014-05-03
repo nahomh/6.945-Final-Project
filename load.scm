@@ -14,7 +14,7 @@
 (load "logic/validation.scm")
 (load "logic/pitch.scm")
 (load "logic/chord.scm")
-(load "logic/internal.scm")
+(load "logic/interval.scm")
 (load "logic/note.scm")
 (load "logic/operation.scm")
 

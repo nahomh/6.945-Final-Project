@@ -6,5 +6,8 @@
 ; (transpose (note c) (interval c g)) → (‘note g4)
 ;piece, note, chord
 
-(define transpose 
-	(make-generic-operator 2))
+;interval
+
+;(define transpose 
+;	(make-generic-operator 2))
+;(defhandler transpose ())
