@@ -99,12 +99,12 @@
   "Piece Octave Defaults To 4"
 )
 
-; ; test different keys and time signatures
-; (define piece2 (new-piece 'd "2/4"))
-; (ptest 
-;   (eq? (piece2 'get-key-sig) 'd)
-;   "Piece Key Takes Input Value"
-; )
+; test different keys and time signatures
+(define piece2 (new-piece 'd "2/4"))
+(ptest 
+  (eq? (piece2 'get 'key) 'd)
+  "Piece Key Takes Input Value"
+)
 ; (ptest 
 ;   (eq? (piece2 'get-time-sig) '2/4)
 ;   "Piece Time Signature Takes Input Value"
