@@ -321,7 +321,8 @@
 
 
 
-
+(define note-test-suite (test-suite-wrapper "Note Operations Suite"))
+(define notest (test note-test-suite))
 
 
 
