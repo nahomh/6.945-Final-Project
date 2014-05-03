@@ -87,7 +87,7 @@
 ; test default piece values
 (define piece1 (new-piece))
 (ptest 
-  (eq? (piece1 'get 'key) 'c)
+  (equal? (piece1 'get 'key) "C")
   "Piece Key Defaults To C"
 )
 (ptest 
@@ -102,7 +102,7 @@
 ; test different keys and time signatures
 (define piece2 (new-piece 'd "2/4"))
 (ptest 
-  (eq? (piece2 'get 'key) 'd)
+  (equal? (piece2 'get 'key) "D")
   "Piece Key Takes Input Value"
 )
 (ptest 
@@ -114,21 +114,21 @@
   "Piece Octave Defaults To 4"
 )
 
-; ; test key parsing
-; (define piece3 (new-piece 'dbb))
-; (define piece4 (new-piece 'd#2))
-; (ptest 
-;   (eq? (piece3 'get-key-sig) 'dbb)
-;   "Piece Key Handles Flats"
-; )
-; (ptest 
-;   (eq? (piece4 'get-key-sig) 'd#)
-;   "Piece Key Handels Octaves"
-; )
-; (ptest 
-;   (= (piece4 'get-octave) 2)
-;   "Piece Octave Takes Input Value 2"
-; )
+; test key parsing
+(define piece3 (new-piece 'dbb))
+(define piece4 (new-piece 'd#2))
+(ptest 
+  (equal? (piece3 'get 'key) "Dbb")
+  "Piece Key Handles Flats"
+)
+(ptest 
+  (equal? (piece4 'get 'key) "D#")
+  "Piece Key Handles Octaves"
+)
+(ptest 
+  (= (piece4 'get 'octave) 2)
+  "Piece Octave Takes Input Value 2"
+)
 
 ;test pitch regexp
 
