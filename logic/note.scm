@@ -96,7 +96,7 @@
 		(accent-type (car accent))))
 	(cond ((string=? accent-type "#") (* semi-count 1))
 		((string=? accent-type "b") (* semi-count -1)))
-	(* semi-count accent-number)))
+	(* semi-count accent-number))
 
 
 (define (get-cent note)
