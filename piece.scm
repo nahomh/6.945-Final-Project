@@ -38,6 +38,17 @@
   )
 )
 
+(define (valid-time? time-str)
+  (let ((valid 
+    (re-string-match 
+      (rexp-compile (rexp-time)) time-str)))
+    (if (not (eq? valid #f)) #t #f)
+  )
+)
+
+(define (valid-octave? num)
+  (integer? num))
+
 (define (new-piece #!optional key-sig time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
@@ -85,6 +96,7 @@
   ; TODO make more strict
   (define (key-type? data)
     ; only symbols and strings
+    ; why not chars? -- ugly
     (displaym "key-type" data)
     (or (symbol? data) (string? data)))
 
@@ -171,7 +183,7 @@
   ; (displaym "Before" (get 'time))
   (set 'time time-sig)
   ; (displaym "After" (get 'time))
-  ; (octave:update key)
+  ; (set 'octave (get-octave key-sig))
   ; (time:update time)
   method-dispatch
 )
