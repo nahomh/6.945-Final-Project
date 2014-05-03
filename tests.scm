@@ -31,7 +31,7 @@
 ;   Blue        0;34     Light Blue    1;34
 ;   Green       0;32     Light Green   1;32
 ;   Cyan        0;36     Light Cyan    1;36
-    ;   Red         0;31     Light Red     1;31*sc
+;   Red         0;31     Light Red     1;31
 ;   Purple      0;35     Light Purple  1;35
 ;   Brown       0;33     Yellow        1;33
 ;   Light Gray  0;37     White         1;37
@@ -99,23 +99,6 @@
   "Piece Octave Defaults To 4"
 )
 
-;test pitch regexp
-
-(ptest
-  (eq? (valid-pitch? "A-2") #f) "Negative signs detected")
-
-(ptest
-  (not (eq? (valid-pitch? "A2") #f)) "Valid pitch accepted")
-
-(ptest
-  (eq? (valid-pitch? "Zbb3") #f) "Illegal letters detected")
-
-(ptest
-  (eq? (valid-pitch? "ABcb3") #f) "Multiple letters detected")
-
-(ptest
-  (not (eq? (valid-pitch? "g#b###532") #f)) "Multiple sharps and flats accepted")
-
 ; test different keys and time signatures
 (define piece2 (new-piece 'd "2/4"))
 (ptest 
@@ -147,6 +130,196 @@
 ;   "Piece Octave Takes Input Value 2"
 ; )
 
+;test pitch regexp
+
+(define valid-pitch-test-suite (test-suite-wrapper "Valid Pitch Suite"))
+(define vtest (test valid-pitch-test-suite))
+
+(vtest
+  (not (valid-pitch? "A-2")) 
+  "Negative signs detected")
+
+(vtest
+  (valid-pitch? "A2") 
+  "Valid pitch accepted")
+
+(vtest
+  (not (valid-pitch? "Zbb3")) 
+  "Illegal letters detected")
+
+(vtest
+  (not (valid-pitch? "ABcb3")) 
+  "Multiple letters detected")
+
+(vtest
+  (valid-pitch? "g#b###532")
+  "Multiple sharps and flats accepted")
+
+;test time regexp
+
+(define valid-time-test-suite (test-suite-wrapper "Valid Time Suite"))
+(define vttest (test valid-time-test-suite))
+
+(vttest
+  (valid-time? "4/4")
+  "4/4 is valid time signature")
+
+(vttest
+  (valid-time? "2/4")
+  "2/4 is valid time signature")
+
+(vttest
+  (valid-time? "6/8")
+  "6/8 is valid time signature")
+
+(vttest
+  (valid-time? "12/4")
+  "12/4 is valid time signature")
+
+(vttest
+  (valid-time? "4/44")
+  "4/44 is valid time signature")
+
+(vttest
+  (not (valid-time? "432r"))
+  "432r is valid time signature")
+
+(vttest
+  (not (valid-time? "4.3/44"))
+  "4.3/44 is valid time signature")
+
+(vttest
+  (not (valid-time? "4/4.4"))
+  "4/4.4 is valid time signature")
+
+
+; valid octave tests
+(define valid-octave-test-suite (test-suite-wrapper "Valid Octave Suite"))
+(define votest (test valid-octave-test-suite))
+
+(votest
+  (valid-octave? 0)
+  "0 is valid octave")
+
+(votest
+  (valid-octave? 3)
+  "3 is valid octave")
+
+(votest
+  (valid-octave? 6)
+  "6 is valid octave")
+
+(votest
+  (not (valid-octave? "12/4"))
+  "12/4 is not a valid octave - only numbers")
+
+(votest
+  (not (valid-octave? 6.5))
+  "6.5 is not valid octave - only integers")
+
+
+(define pitch-ops-test-suite (test-suite-wrapper "Pitch Operations Suite"))
+(define potest (test pitch-ops-test-suite))
+
+(potest
+  (eqv? (get-pitch "ab3") #\A)
+  "Get pitch gets first value as uppercase char")
+
+(potest
+  (not (eqv? (get-pitch "ab3") #\a))
+  "Get pitch does not return lowercase")
+
+(potest
+  (eqv? (get-pitch "gdfadb3") #\G)
+  "Get pitch gets first value as uppercase char")
+
+
+(potest
+  (= (string-count "abbb" "b") 3)
+  "3 b's in abbb")
+(potest
+  (= (string-count "a###" "#") 3)
+  "3 #'s in a###")
+(potest
+  (= (string-count "a" "#") 0)
+  "0 #'s in a")
+(potest
+  (= (string-count "" "#") 0)
+  "0 for null string")
+
+
+(potest
+  (= (length (get-accent "a")) 2)
+  "get-accent returns length 2 list")
+
+(potest
+  (equal? (car (get-accent "abbb")) "b")
+  "get-accent tag should be flat for abbb")
+
+(potest
+  (equal? (cadr (get-accent "abbb")) 3)
+  "get-accent val should be 3 for abbb")
+
+(potest
+  (equal? (cadr (get-accent "a###")) 3)
+  "get-accent val should be 3 for abbb")
+
+(potest
+  (equal? (cadr (get-accent "ab#")) 0)
+  "get-accent val should be 0 for ab#")
+
+(potest
+  (equal? (car (get-accent "ab#")) "b")
+  "get-accent tag should be b for no accent")
+
+(potest
+  (equal? (cadr (get-accent "ab#2")) 0)
+  "get-accent val should be 0 for ab#2")
+
+(potest
+  (equal? (car (get-accent "ab#2")) "b")
+  "get-accent tag should be b for no accent")
+
+(potest
+  (equal? (cadr (get-accent "ab##")) 1)
+  "get-accent val should be 1 for ab##")
+
+(potest
+  (equal? (car (get-accent "ab##")) "#")
+  "get-accent tag should be # for ab##")
+
+
+
+
+(potest
+  (equal? (get-octave "ab##") "")
+  "get-octave should defualt to ''")
+
+(potest
+  (= (get-octave-num "ab##") 4)
+  "get-octave should defualt to 4")
+
+(potest
+  (= (get-octave-num "ab##1") 1)
+  "get-octave should be 1 for ab##1")
+
+(potest
+  (= (get-octave-num "ab##123") 123)
+  "get-octave should be 123 for ab##123")
+
+; (potest
+;   (valid-octave? 6)
+;   "6 is valid octave")
+
+; (potest
+;   (not (valid-octave? "12/4"))
+;   "12/4 is not a valid octave - only numbers")
+
+; (potest
+;   (not (valid-octave? 6.5))
+;   "6.5 is not valid octave - only integers")
+
+
 
 ; print test results
 (define nil '())
@@ -159,4 +332,8 @@
 (print-test-suites 
   my-test-suite
   my-test-suite2
-  piece-test-suite)
+  piece-test-suite
+  valid-pitch-test-suite
+  valid-octave-test-suite
+  valid-time-test-suite
+  pitch-ops-test-suite)

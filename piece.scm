@@ -30,10 +30,6 @@
 ; note operatiosn car-caddr -> get-pitch etc...
 ; 
 
-(define (valid-pitch? pitch-str)
-  (re-string-match (rexp-compile (rexp-pitch)) pitch-str)
-)
-
 (define (new-piece #!optional key-sig time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
@@ -81,6 +77,7 @@
   ; TODO make more strict
   (define (key-type? data)
     ; only symbols and strings
+    ; why not chars? -- ugly
     (displaym "key-type" data)
     (or (symbol? data) (string? data)))
 
@@ -162,46 +159,12 @@
     )
   )
 
-  ; ; generic dispatch
-
-  ; ; key operations
-  ; (define (update-key! key)
-  ;   ; update the key signature with (string) key
-  ;   ; validate first
-  ;   ; (is-valid-pitch)
-  ;   (set! key (string->symbol key))
-  ; )
-  ; (define key:update!
-  ;   (make-generic-operator 1))
-
-  ; (defhandler key:update! 
-  ;   update-key! string?)
-  ; (defhandler key:update! 
-  ;   (lambda (x) (update-key! (symbol->string x))) symbol?)
-  ; (defhandler key:update! no-op default-object?)
-
-  ; ; octave operations
-  ; ; taken from the key
-  ; (define octave:update
-  ;   (make-generic-operator 1))
-  ; (defhandler octave:update (lambda(x) (set! octave-sig (string->symbol x))) string?)
-  ; (defhandler octave:update (lambda(x) (set! octave-sig x)) symbol?)
-  ; (defhandler octave:update no-op default-object?)
-
-
-  ; ; time signature operations
-  ; ; "1/4" '1/4 
-  ; (define time:update
-  ;   (make-generic-operator 1))
-  ; (defhandler time:update (lambda(x) (set! time-sig (string->symbol x))) string?)
-  ; (defhandler time:update (lambda(x) (set! time-sig x)) symbol?)
-  ; (defhandler time:update no-op default-object?)
 
   (set 'key key-sig)
-  (displaym "Before" (get 'time))
+  ; (displaym "Before" (get 'time))
   (set 'time time-sig)
-  (displaym "After" (get 'time))
-  ; (octave:update key)
+  ; (displaym "After" (get 'time))
+  ; (set 'octave (get-octave key-sig))
   ; (time:update time)
   method-dispatch
 )

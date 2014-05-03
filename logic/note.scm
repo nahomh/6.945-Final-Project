@@ -10,6 +10,8 @@
 ; (piece (add-note (note a))) -> note within piece -> note a4 -> duration of ⅙
 
 
+;(create-note pitch duration accent)
+
 ; (note a ¼)
 ; (note a 0.25)
 ; (note a# 0.25)
@@ -25,6 +27,44 @@
 ; last = octave
 
 
+
+(define (empty-note)
+  (define-cell note)
+  (eq-put! note 'pitch #\C)
+  (eq-put! note 'duration 0.25)
+  (eq-put! note 'octave 4)
+  (eq-put! note 'accent '()))
+
+
+(define (create-note pitch-string duration)
+  (if (not (valid-pitch? pitch-string))
+    "Not a valid pitch expression"
+    (let ((new-note (empty-note)))
+      (eq-put! new-note 'pitch (get-pitch pitch-string))
+      (eq-put! new-note 'duration duration)
+      (eq-put! new-note 'accent (get-accent pitch-string))
+      (eq-put! new-note 'octave (get-octave-num pitch-string))
+      new-note)))
+
+(define (add note summand)
+  (make-generic-operator 2))
+
+; (defhandler add
+;   (lambda (note octave)
+;     (let ((current-octave (eq-get note 'octave)))
+;       (eq-put!
+;         note
+;         'octave
+;         'data
+;         (+ octave current-octave)))
+;     note)
+;   note? octave?)
+
+; (define (compare-notes note1 note2)
+;   (< (get-cent note1) (get-cent note2)))
+
+; (define (sort-notes notes)
+;   (sort notes compare-notes))
 ;default case C4--> 0
 
 (define C4 0)
@@ -70,6 +110,3 @@
 		((char=? pitch #G) (- count (* 7 semitone))))
 	(+ count (cent-octave-count octave))
 	(+ count (get-accent-count accent)))
-
-
-
