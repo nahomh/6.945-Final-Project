@@ -6,6 +6,8 @@
 (load "generics.scm")
 (load "amb.scm")
 (load "util")
+(load "propagator/load")
+(load "propagator/ui")
 
 ; load all the logic files for the enviornment
 (cd "./logic")
