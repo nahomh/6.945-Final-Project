@@ -29,7 +29,7 @@
 (define (empty-note)
   (define-cell note)
   (eq-put! note 'type 'note)
-  (eq-put! note 'pitch 'C)
+  (eq-put! note 'pitch #\C)
   (eq-put! note 'duration 0.25)
   (eq-put! note 'octave 4)
   (eq-put! note 'accent '()))
@@ -42,38 +42,8 @@
       (eq-put! new-note 'pitch (get-pitch pitch-string))
       (eq-put! new-note 'duration duration)
       (eq-put! new-note 'accent (get-accent pitch-string))
-      (eq-put! new-note 'octave (get-octave pitch-string))
+      (eq-put! new-note 'octave (get-octave-num pitch-string))
       new-note)))
-
-(define (get-pitch pitch-string)
-  (string-ref pitch-string 0))
-
-(define (get-accent pitch-string)
-  (let* 
-    ((pitch-substr (string-tail pitch-string 1))
-      (num-sharps (string-count pitch-substr #/#)) 
-     (num-flats (string-count pitch-substr #/b))
-     (difference (- num-sharps num-flats)))
-    (if (> 0 difference)
-      (cons "#" difference)
-      (cons "b" difference))))
-
-
-(define (get-octave pitch-string)
-  (let* (
-    (last-flat (string-search-backward pitch-string "b"))
-    (last-sharp (string-search-backward pitch-string "#")))
-
-    (cond
-      ((and (eq? last-flat #f) (eq? last-sharp #f))
-        (string-tail pitch-string 1))
-      ((eq? last-flat #f)
-        (string-tail pitch-string last-sharp))
-      ((eq? last-sharp #f)
-        (string-tail pitch-string last-flat))
-      (else
-        (string-tail pitch-string (max last-flat last-sharp))))))
-
 
 (define (add note summand)
   (make-generic-operator 2))
@@ -89,7 +59,7 @@
     note)
   note? valid-octave?)
 
-(define note? note
+(define (note? note)
   (if (cell? note)
     (eq? 'note (eq-get note 'type))
     #f))

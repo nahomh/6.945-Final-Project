@@ -25,8 +25,8 @@
   (if (< (length notes) 3)
     "Must have three or more notes in a chord"
     (let ((new-chord (empty-chord)))
-      (eq-put! new-chord 'data notes))
-    new-chord))
+      (eq-put! new-chord 'data notes)
+    new-chord)))
 
 
 (define (first-inversion chord)
