@@ -36,7 +36,7 @@
   #f
 )
 
-(define (new-piece #!optional key time)
+(define (new-piece #!optional key-sig time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
   (define-cell key)
@@ -46,7 +46,7 @@
   ; key handle string, symbol
   (define-cell time)
   (eq-put! time 'type 'time)
-  (eq-put! time 'data '4/4)
+  (eq-put! time 'data "4/4")
   ; generic time 
   ; defaults to 4/4
   ; (define time "")
@@ -69,7 +69,7 @@
   ;  )
   ; if want to get measure do list->vector first
 
-  ; type checkers
+  ; type checkers for cells
   (define (key? symb)
     (eq? symb 'key))
   (define (time? symb)
@@ -79,9 +79,28 @@
   (define (measures? symb)
     (eq? symb 'measures))
 
+  ; type checkers for cell data
+  ; TODO make more strict
+  (define (key-type? data)
+    ; only symbols and strings
+    (displaym "key-type" data)
+    (or (symbol? data) (string? data)))
 
-  (define no-op (lambda (a) 
-    (displaym "No Generic Handler Found For" a) ; debugging
+  (define (time-type? data)
+    ; only strings
+    ; with the proper structure
+    (string? data))
+  (define (octave-type? data)
+    ; numbers or symbols and strings
+    ; that can become numbers
+    (or (symbol? data) (string? data) (number? data)))
+  (define (measures-type? data)
+    ; only lists of measures
+    (or (list? data)))
+
+
+  (define no-op (lambda (label . args) 
+    (displaym "No Generic Handler Found For" label args) ; debugging
     #f))
   ; generics
   (define (get-data cell)
@@ -97,21 +116,50 @@
     (lambda(x) (get-data octave)) octave?)
   (defhandler get 
     (lambda(x) (get-data measures)) measures?)
-  (defhandler get no-op default-object?)
+  (defhandler get 
+    (lambda(x)
+      (no-op "Get" x)) default-object?)
+
+
+  (define (coerce type value)
+    value ; TODO -- this
+  )
+  (define (set-data cell type value)
+    (let  (
+            (coerced-val (coerce type value))
+          )
+          (displaym "set-data cell" cell)
+          (displaym "set-data type" type)
+          (displaym "set-data coerced" coerced-val)
+          (if (not (eqv? #f coerced-val))
+            (eq-put! cell 'data coerced-val)
+            (displaym "Invalid Value for " type value))))
+  
+  (define set
+    (make-generic-operator 2))
+  (defhandler set 
+    (lambda(type val) 
+      (set-data key type val)) key? key-type?)
+  (defhandler set 
+    (lambda(type val) 
+      (set-data time type val)) time? time-type?)
+  (defhandler set 
+    (lambda(type val) 
+      (set-data octave type val)) octave? octave-type?)
+  (defhandler set 
+    (lambda(type val) 
+      (set-data measures type val)) measures? measures-type?)
+  (defhandler set 
+    (lambda(type val)
+      (no-op "Set" type val)) any? default-object?)
 
 
   ; method dispatch
   (define (method-dispatch tag . args)
     (cond 
          ((eq? tag 'get) (apply get args))
-
-         ; ((eq? tag 'get-measures) key)
-         ; ((eq? tag 'set-key) key)
-         ; ((eq? tag 'set-octave) key)
-         ; ((eq? tag 'set-time) key)
-         ; ((eq? tag 'set-measures) key)
-         ; ((eq? tag 'add) key)
-         ; ((eq? tag 'repeat) key)
+         ((eq? tag 'set) (apply set args))
+         ; ((eq? tag 'add) (apply add args))
          (else (displaym "ERROR: \n\t Method Not Found" tag))
     )
   )
@@ -151,8 +199,10 @@
   ; (defhandler time:update (lambda(x) (set! time-sig x)) symbol?)
   ; (defhandler time:update no-op default-object?)
 
-
-  ; (key:update! key)
+  (set 'key key-sig)
+  (displaym "Before" (get 'time))
+  (set 'time time-sig)
+  (displaym "After" (get 'time))
   ; (octave:update key)
   ; (time:update time)
   method-dispatch
