@@ -3,10 +3,12 @@
 
 (define (get-accent pitch-string)
   (let* 
-    ((pitch-substr (string-tail pitch-string 1))
-      (num-sharps (string-count pitch-substr #/#)) 
-     (num-flats (string-count pitch-substr #/b))
-     (difference (- num-sharps num-flats)))
+    (
+     (pitch-substr (string-tail pitch-string 1))
+     (num-sharps (string-count pitch-substr #\#)) 
+     (num-flats (string-count pitch-substr #\b))
+     (difference (- num-sharps num-flats))
+    )
     (if (> 0 difference)
       (cons "#" difference)
       (cons "b" difference))))

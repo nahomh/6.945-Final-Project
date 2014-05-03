@@ -30,25 +30,6 @@
 ; note operatiosn car-caddr -> get-pitch etc...
 ; 
 
-(define (valid-pitch? pitch-str)
-  (let ((valid 
-    (re-string-match 
-      (rexp-compile (rexp-pitch)) pitch-str)))
-    (if (not (eq? valid #f)) #t #f)
-  )
-)
-
-(define (valid-time? time-str)
-  (let ((valid 
-    (re-string-match 
-      (rexp-compile (rexp-time)) time-str)))
-    (if (not (eq? valid #f)) #t #f)
-  )
-)
-
-(define (valid-octave? num)
-  (integer? num))
-
 (define (new-piece #!optional key-sig time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
