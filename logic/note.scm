@@ -30,6 +30,7 @@
 
 (define (empty-note)
   (define-cell note)
+  (eq-put! note 'type 'note)
   (eq-put! note 'pitch #\C)
   (eq-put! note 'duration 0.25)
   (eq-put! note 'octave 4)
@@ -46,25 +47,28 @@
       (eq-put! new-note 'octave (get-octave-num pitch-string))
       new-note)))
 
-(define (add note summand)
+(define note-add
   (make-generic-operator 2))
 
-; (defhandler add
-;   (lambda (note octave)
-;     (let ((current-octave (eq-get note 'octave)))
-;       (eq-put!
-;         note
-;         'octave
-;         'data
-;         (+ octave current-octave)))
-;     note)
-;   note? octave?)
+(defhandler note-add
+  (lambda (note octave)
+    (let ((current-octave (eq-get note 'octave)))
+      (eq-put!
+        note
+        'octave
+        'data
+        (+ octave current-octave)))
+    note)
+  note? valid-octave?)
 
-; (define (compare-notes note1 note2)
-;   (< (get-cent note1) (get-cent note2)))
 
-; (define (sort-notes notes)
-;   (sort notes compare-notes))
+(define (compare-notes note1 note2)
+  (< (get-cent note1) (get-cent note2)))
+
+(define (sort-notes notes)
+  (sort notes compare-notes))
+
+
 ;default case C4--> 0
 
 (define C4 0)

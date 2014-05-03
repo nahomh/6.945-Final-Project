@@ -8,6 +8,6 @@
 
 ;interval
 
-(define transpose 
-	(make-generic-operator 2))
-(defhandler transpose ())
+;(define transpose 
+;	(make-generic-operator 2))
+;(defhandler transpose ())
