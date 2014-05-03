@@ -161,6 +161,86 @@
   (not (valid-time? "4/4.4"))
   "4/4.4 is valid time signature")
 
+(define note-test-suite (test-suite-wrapper "Note Test Suite"))
+(define ntest (test note-test-suite))
+
+(ntest
+  (let ((note (empty-note)))
+    (eq? (eq-get 'type) 'note)
+    (eq? (eq-get 'pitch) '#/C)
+    (eq? (eq-get 'duration) 0.25)
+    (eq? (eq-get 'octave) 4)
+    (eq? (eq-get 'accent) '()))
+  "Empty note created correctly")
+
+(ntest
+  (let ((note (create-note "Abb23" 0.5)))
+    (eq? (eq-get 'type) 'note)
+    (eq? (eq-get 'pitch) '#/A)
+    (eq? (eq-get 'duration) 0.5)
+    (eq? (eq-get 'octave) 23)
+    (eq? (eq-get 'accent) `(b 2)))
+  "Note 1 created correctly")
+
+(ntest
+  (let ((note (create-note "b#b#b" 0.5)))
+    (eq? (eq-get 'type) 'note)
+    (eq? (eq-get 'pitch) '#/b)
+    (eq? (eq-get 'duration) 0.5)
+    (eq? (eq-get 'octave) 4)
+    (eq? (eq-get 'accent) `(b 0)))
+  "Note 2 created correctly")
+
+(ntest
+  (let ((note (create-note "B#b#543" 1))
+    (eq? (eq-get 'type) 'note)
+    (eq? (eq-get 'pitch) '#/B)
+    (eq? (eq-get 'duration) 1)
+    (eq? (eq-get 'octave) 543)
+    (eq? (eq-get 'accent) `(# 1))))
+  "Note 3 created correctly")
+
+(define chord-test-suite (test-suite-wrapper "Chord Test Suite"))
+(define ctest (test chord-test-suite))
+
+(define (note-list)
+  `((create-note "Abb23" 0.5) 
+    (create-note "b#b#b" 0.5)   
+    (create-note "B#b#543" 0.5))))
+
+
+(ctest
+  (let ((chord (empty-chord)))
+    (eq? (eq-get chord 'type) 'chord)
+    (eq? (eq-get chord 'data) '()))
+  "Empty note create correctly")
+
+(ctest
+  (let (
+    (chord (create-chord 
+      (create-note "Abb23" 0.5) 
+      (create-note "b#b#b" 0.5) 
+      (create-note "B#b#543" 0.5))))
+    (eq? (length (eq-get chord 'data) 3)))
+  "Correct length of notes")
+
+(ctest
+  (let (
+    (chord (create-chord 
+      (create-note "Abb23" 0.5) 
+      (create-note "b#b#b" 0.5) )))
+    (eq? chord "Must have three or more notes in a chord"))))
+  "Requires 3 or more notes correctly")
+
+
+(ctest
+  (let (
+    (chord (create-chord 
+      (create-note "Abb23" 0.5) 
+      (create-note "b#b#b" 0.5) 
+      'b)))
+    (eq? chord "The set of notes passed in aren't valid"))
+  "Ensures all notes in chord are valid notes")
 
 
 (define valid-octave-test-suite (test-suite-wrapper "Valid Octave Suite"))
@@ -228,9 +308,12 @@
   )
 )
 (print-test-suites 
+  chord-test-suite
   my-test-suite
   my-test-suite2
+  note-test-suite
   piece-test-suite
   valid-pitch-test-suite
   valid-octave-test-suite
-  valid-time-test-suite)
+  valid-time-test-suite
+)

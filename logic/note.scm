@@ -45,10 +45,10 @@
       (eq-put! new-note 'octave (get-octave-num pitch-string))
       new-note)))
 
-(define (add note summand)
+(define note-add
   (make-generic-operator 2))
 
-(defhandler add
+(defhandler note-add
   (lambda (note octave)
     (let ((current-octave (eq-get note 'octave)))
       (eq-put!
@@ -58,11 +58,6 @@
         (+ octave current-octave)))
     note)
   note? valid-octave?)
-
-(define (note? note)
-  (if (cell? note)
-    (eq? 'note (eq-get note 'type))
-    #f))
 
 
 (define (compare-notes note1 note2)

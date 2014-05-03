@@ -16,3 +16,18 @@
 
 (define (valid-octave? num)
   (integer? num))
+
+
+(define (note? note)
+  (if (cell? note)
+    (eq? 'note (eq-get note 'type))
+    #f))
+
+(define valid-notes? notes
+  (define (iterator note-list)
+    (if (pair? note-list)
+      (if (note? (car note-list))
+        (iterator (cdr note-list))
+        #f)
+      #t))
+  (iterator notes))
