@@ -4,3 +4,7 @@
 
 ; Spefication Examples:
 ; (transpose (note c) (interval c g)) → (‘note g4)
+;piece, note, chord
+
+(define transpose 
+	(make-generic-operator 2))
