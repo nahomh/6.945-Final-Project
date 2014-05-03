@@ -105,19 +105,24 @@
 (define vtest (test valid-pitch-test-suite))
 
 (vtest
-  (eq? (valid-pitch? "A-2") #f) "Negative signs detected")
+  (not (valid-pitch? "A-2")) 
+  "Negative signs detected")
 
 (vtest
-  (not (eq? (valid-pitch? "A2") #f)) "Valid pitch accepted")
+  (valid-pitch? "A2") 
+  "Valid pitch accepted")
 
 (vtest
-  (eq? (valid-pitch? "Zbb3") #f) "Illegal letters detected")
+  (not (valid-pitch? "Zbb3")) 
+  "Illegal letters detected")
 
 (vtest
-  (eq? (valid-pitch? "ABcb3") #f) "Multiple letters detected")
+  (not (valid-pitch? "ABcb3")) 
+  "Multiple letters detected")
 
 (vtest
-  (not (eq? (valid-pitch? "g#b###532") #f)) "Multiple sharps and flats accepted")
+  (valid-pitch? "g#b###532")
+  "Multiple sharps and flats accepted")
 
 ; test different keys and time signatures
 (define piece2 (new-piece 'd "2/4"))

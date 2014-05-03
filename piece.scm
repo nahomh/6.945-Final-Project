@@ -31,7 +31,11 @@
 ; 
 
 (define (valid-pitch? pitch-str)
-  (re-string-match (rexp-compile (rexp-pitch)) pitch-str)
+  (let ((valid 
+    (re-string-match 
+      (rexp-compile (rexp-pitch)) pitch-str)))
+    (if (not (eq? valid #f)) #t #f)
+  )
 )
 
 (define (new-piece #!optional key-sig time-sig)
