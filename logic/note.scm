@@ -92,14 +92,14 @@
 		(accent-number (cadr accent))
 		(accent-type (car accent)))
 	(cond ((string=? accent-type "#") (* semi-count 1))
-		((string=? accent-type "b") (* semi-count -1)))
-	(* semi-count accent-number)))
+		((string=? accent-type "b") (* semi-count -1))))
+	(* semi-count accent-number))
 
 
 (define (get-cent note)
-	(let ((pitch (eq-get! note 'pitch))
-		(octave (eq-get! note 'octave))
-		(accent (eq-get! note 'accent))
+	(let ((pitch (eq-get note 'pitch))
+		(octave (eq-get note 'octave))
+		(accent (eq-get note 'accent))
 		(count 0))
 	;get the ascii value for the note
 	(if (is-middle? pitch octave accent) C4)
