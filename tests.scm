@@ -31,7 +31,7 @@
 ;   Blue        0;34     Light Blue    1;34
 ;   Green       0;32     Light Green   1;32
 ;   Cyan        0;36     Light Cyan    1;36
-    ;   Red         0;31     Light Red     1;31*sc
+;   Red         0;31     Light Red     1;31
 ;   Purple      0;35     Light Purple  1;35
 ;   Brown       0;33     Yellow        1;33
 ;   Light Gray  0;37     White         1;37
@@ -98,6 +98,37 @@
   (= (piece1 'get 'octave) 4)
   "Piece Octave Defaults To 4"
 )
+
+; test different keys and time signatures
+(define piece2 (new-piece 'd "2/4"))
+(ptest 
+  (eq? (piece2 'get 'key) 'd)
+  "Piece Key Takes Input Value"
+)
+(ptest 
+  (equal? (piece2 'get 'time) "2/4")
+  "Piece Time Signature Takes Input Value"
+)
+(ptest 
+  (= (piece2 'get 'octave) 4)
+  "Piece Octave Defaults To 4"
+)
+
+; ; test key parsing
+; (define piece3 (new-piece 'dbb))
+; (define piece4 (new-piece 'd#2))
+; (ptest 
+;   (eq? (piece3 'get-key-sig) 'dbb)
+;   "Piece Key Handles Flats"
+; )
+; (ptest 
+;   (eq? (piece4 'get-key-sig) 'd#)
+;   "Piece Key Handels Octaves"
+; )
+; (ptest 
+;   (= (piece4 'get-octave) 2)
+;   "Piece Octave Takes Input Value 2"
+; )
 
 ;test pitch regexp
 
@@ -242,7 +273,7 @@
     (eq? chord "The set of notes passed in aren't valid"))
   "Ensures all notes in chord are valid notes")
 
-
+; valid octave tests
 (define valid-octave-test-suite (test-suite-wrapper "Valid Octave Suite"))
 (define votest (test valid-octave-test-suite))
 
@@ -267,36 +298,107 @@
   "6.5 is not valid octave - only integers")
 
 
-; test different keys and time signatures
-(define piece2 (new-piece 'd "2/4"))
-(ptest 
-  (eq? (piece2 'get 'key) 'd)
-  "Piece Key Takes Input Value"
-)
-(ptest 
-  (equal? (piece2 'get 'time) "2/4")
-  "Piece Time Signature Takes Input Value"
-)
-(ptest 
-  (= (piece2 'get 'octave) 4)
-  "Piece Octave Defaults To 4"
-)
+(define pitch-ops-test-suite (test-suite-wrapper "Pitch Operations Suite"))
+(define potest (test pitch-ops-test-suite))
 
-; ; test key parsing
-; (define piece3 (new-piece 'dbb))
-; (define piece4 (new-piece 'd#2))
-; (ptest 
-;   (eq? (piece3 'get-key-sig) 'dbb)
-;   "Piece Key Handles Flats"
-; )
-; (ptest 
-;   (eq? (piece4 'get-key-sig) 'd#)
-;   "Piece Key Handels Octaves"
-; )
-; (ptest 
-;   (= (piece4 'get-octave) 2)
-;   "Piece Octave Takes Input Value 2"
-; )
+(potest
+  (eqv? (get-pitch "ab3") #\A)
+  "Get pitch gets first value as uppercase char")
+
+(potest
+  (not (eqv? (get-pitch "ab3") #\a))
+  "Get pitch does not return lowercase")
+
+(potest
+  (eqv? (get-pitch "gdfadb3") #\G)
+  "Get pitch gets first value as uppercase char")
+
+
+(potest
+  (= (string-count "abbb" "b") 3)
+  "3 b's in abbb")
+(potest
+  (= (string-count "a###" "#") 3)
+  "3 #'s in a###")
+(potest
+  (= (string-count "a" "#") 0)
+  "0 #'s in a")
+(potest
+  (= (string-count "" "#") 0)
+  "0 for null string")
+
+
+(potest
+  (= (length (get-accent "a")) 2)
+  "get-accent returns length 2 list")
+
+(potest
+  (equal? (car (get-accent "abbb")) "b")
+  "get-accent tag should be flat for abbb")
+
+(potest
+  (equal? (cadr (get-accent "abbb")) 3)
+  "get-accent val should be 3 for abbb")
+
+(potest
+  (equal? (cadr (get-accent "a###")) 3)
+  "get-accent val should be 3 for abbb")
+
+(potest
+  (equal? (cadr (get-accent "ab#")) 0)
+  "get-accent val should be 0 for ab#")
+
+(potest
+  (equal? (car (get-accent "ab#")) "b")
+  "get-accent tag should be b for no accent")
+
+(potest
+  (equal? (cadr (get-accent "ab#2")) 0)
+  "get-accent val should be 0 for ab#2")
+
+(potest
+  (equal? (car (get-accent "ab#2")) "b")
+  "get-accent tag should be b for no accent")
+
+(potest
+  (equal? (cadr (get-accent "ab##")) 1)
+  "get-accent val should be 1 for ab##")
+
+(potest
+  (equal? (car (get-accent "ab##")) "#")
+  "get-accent tag should be # for ab##")
+
+
+
+
+(potest
+  (equal? (get-octave "ab##") "")
+  "get-octave should defualt to ''")
+
+(potest
+  (= (get-octave-num "ab##") 4)
+  "get-octave should defualt to 4")
+
+(potest
+  (= (get-octave-num "ab##1") 1)
+  "get-octave should be 1 for ab##1")
+
+(potest
+  (= (get-octave-num "ab##123") 123)
+  "get-octave should be 123 for ab##123")
+
+; (potest
+;   (valid-octave? 6)
+;   "6 is valid octave")
+
+; (potest
+;   (not (valid-octave? "12/4"))
+;   "12/4 is not a valid octave - only numbers")
+
+; (potest
+;   (not (valid-octave? 6.5))
+;   "6.5 is not valid octave - only integers")
+
 
 
 ; print test results
@@ -316,4 +418,8 @@
   valid-pitch-test-suite
   valid-octave-test-suite
   valid-time-test-suite
+<<<<<<< HEAD
 )
+=======
+  pitch-ops-test-suite)
+>>>>>>> 84da9e30e310fcae103d857eef97d34bdac2bb5d
