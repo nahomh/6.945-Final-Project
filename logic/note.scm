@@ -93,7 +93,7 @@
 (define (get-accent-count accent)
 	(let ((semi-count 100)
 		(accent-number (cadr accent))
-		(accent-type (car accent)))
+		(accent-type (car accent))))
 	(cond ((string=? accent-type "#") (* semi-count 1))
 		((string=? accent-type "b") (* semi-count -1)))
 	(* semi-count accent-number)))
