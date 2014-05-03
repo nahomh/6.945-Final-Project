@@ -197,39 +197,43 @@
 
 (ntest
   (let ((note (empty-note)))
-    (eq? (eq-get 'type) 'note)
-    (eq? (eq-get 'pitch) '#/C)
-    (eq? (eq-get 'duration) 0.25)
-    (eq? (eq-get 'octave) 4)
-    (eq? (eq-get 'accent) '()))
-  "Empty note created correctly")
+    (and
+      (eq? (eq-get note 'type) 'note)
+      (eq? (eq-get note 'pitch) #\C)
+      (= (eq-get note 'duration) 0.25)
+      (eq? (eq-get note 'octave) 4)
+      (equal? (eq-get note 'accent) '())))
+  "Empty note not created correctly")
 
 (ntest
   (let ((note (create-note "Abb23" 0.5)))
-    (eq? (eq-get 'type) 'note)
-    (eq? (eq-get 'pitch) '#/A)
-    (eq? (eq-get 'duration) 0.5)
-    (eq? (eq-get 'octave) 23)
-    (eq? (eq-get 'accent) `(b 2)))
-  "Note 1 created correctly")
+    (and
+      (eq? (eq-get note 'type) 'note)
+      (eq? (eq-get note 'pitch) #\A)
+      (= (eq-get note 'duration) 0.5)
+      (eq? (eq-get note 'octave) 23)
+      (equal? (eq-get note 'accent) (list "b" 2))))
+  "Note 1 not created correctly")
 
 (ntest
   (let ((note (create-note "b#b#b" 0.5)))
-    (eq? (eq-get 'type) 'note)
-    (eq? (eq-get 'pitch) '#/b)
-    (eq? (eq-get 'duration) 0.5)
-    (eq? (eq-get 'octave) 4)
-    (eq? (eq-get 'accent) `(b 0)))
-  "Note 2 created correctly")
+    (and
+      (eq? (eq-get note 'type) 'note)
+      (eq? (eq-get note 'pitch) #\B)
+      (= (eq-get note 'duration) 0.5)
+      (eq? (eq-get note 'octave) 4)
+      (equal? (eq-get note 'accent) (list "b" 0))))
+  "Note 2 not created correctly")
 
 (ntest
-  (let ((note (create-note "B#b#543" 1))
-    (eq? (eq-get 'type) 'note)
-    (eq? (eq-get 'pitch) '#/B)
-    (eq? (eq-get 'duration) 1)
-    (eq? (eq-get 'octave) 543)
-    (eq? (eq-get 'accent) `(# 1))))
-  "Note 3 created correctly")
+  (let ((note (create-note "B#b#543" 1)))
+    (and
+      (eq? (eq-get note 'type) 'note)
+      (eq? (eq-get note 'pitch) #\B)
+      (= (eq-get note 'duration) 1)
+      (eq? (eq-get note 'octave) 543)
+      (equal? (eq-get note 'accent) (list "#" 1))))
+  "Note 3 not created correctly")
 
 (define chord-test-suite (test-suite-wrapper "Chord Test Suite"))
 (define ctest (test chord-test-suite))
@@ -237,7 +241,7 @@
 (define (note-list)
   `((create-note "Abb23" 0.5) 
     (create-note "b#b#b" 0.5)   
-    (create-note "B#b#543" 0.5))))
+    (create-note "B#b#543" 0.5)))
 
 
 (ctest
@@ -252,7 +256,7 @@
       (create-note "Abb23" 0.5) 
       (create-note "b#b#b" 0.5) 
       (create-note "B#b#543" 0.5))))
-    (eq? (length (eq-get chord 'data) 3)))
+    (= (length (eq-get chord 'data)) 3))
   "Correct length of notes")
 
 (ctest
@@ -260,8 +264,8 @@
     (chord (create-chord 
       (create-note "Abb23" 0.5) 
       (create-note "b#b#b" 0.5) )))
-    (eq? chord "Must have three or more notes in a chord"))))
-  "Requires 3 or more notes correctly")
+    (eq? chord "Must have three or more notes in a chord"))
+  "This should fail: Requires 3 or more notes correctly")
 
 
 (ctest
@@ -271,7 +275,7 @@
       (create-note "b#b#b" 0.5) 
       'b)))
     (eq? chord "The set of notes passed in aren't valid"))
-  "Ensures all notes in chord are valid notes")
+  "This should fail: Ensures all notes in chord are valid notes")
 
 ; valid octave tests
 (define valid-octave-test-suite (test-suite-wrapper "Valid Octave Suite"))
@@ -424,8 +428,4 @@
   valid-pitch-test-suite
   valid-octave-test-suite
   valid-time-test-suite
-<<<<<<< HEAD
-)
-=======
   pitch-ops-test-suite)
->>>>>>> 84da9e30e310fcae103d857eef97d34bdac2bb5d

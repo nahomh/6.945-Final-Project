@@ -23,7 +23,7 @@
     (eq? 'note (eq-get note 'type))
     #f))
 
-(define valid-notes? notes
+(define (valid-notes? notes)
   (define (iterator note-list)
     (if (pair? note-list)
       (if (note? (car note-list))
