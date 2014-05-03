@@ -87,16 +87,17 @@
 
 ;get accent-value 
 (define (get-accent-count accent)
-	(let ((semi-count 100)
+	(let (
+		(semi-count 100)
 		(accent-number (cadr accent))
-		(accent-type (car accent))))
+		(accent-type (car accent)))
 	(cond ((string=? accent-type "#") (* semi-count 1))
 		((string=? accent-type "b") (* semi-count -1)))
-	(* semi-count accent-number))
+	(* semi-count accent-number)))
 
 
 (define (get-cent note)
-	(let (pitch (eq-get! note 'pitch))
+	(let ((pitch (eq-get! note 'pitch))
 		(octave (eq-get! note 'octave))
 		(accent (eq-get! note 'accent))
 		(count 0))
@@ -109,4 +110,4 @@
 		((char=? pitch #\F) (- count (* 5 semitone)))
 		((char=? pitch #\G) (- count (* 7 semitone))))
 	(+ count (cent-octave-count octave))
-	(+ count (get-accent-count accent)))
+	(+ count (get-accent-count accent))))
