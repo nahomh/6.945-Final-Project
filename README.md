@@ -24,5 +24,4 @@ To-Do
 	Chords
 		notes
 4. Nondeterministic composing
-5. Regexp for input validation
-	(string, 
+5. Regexp for input validation DONE

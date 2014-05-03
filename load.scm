@@ -6,7 +6,6 @@
 (load "generics.scm")
 (load "amb.scm")
 (load "util")
-(load "regexp.scm")
 (load-option 'regular-expression)
 (load "propagator/load")
 (load "propagator/ui")
@@ -16,6 +15,7 @@
 (load "internal.scm")
 (load "note.scm")
 (load "operation.scm")
+(load "regexp.scm")
 (cd "..")
 
 

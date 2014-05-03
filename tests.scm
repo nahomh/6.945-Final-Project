@@ -101,19 +101,22 @@
 
 ;test pitch regexp
 
-(ptest
+(define valid-pitch-test-suite (test-suite-wrapper "Valid Pitch Suite"))
+(define vtest (test valid-pitch-test-suite))
+
+(vtest
   (eq? (valid-pitch? "A-2") #f) "Negative signs detected")
 
-(ptest
+(vtest
   (not (eq? (valid-pitch? "A2") #f)) "Valid pitch accepted")
 
-(ptest
+(vtest
   (eq? (valid-pitch? "Zbb3") #f) "Illegal letters detected")
 
-(ptest
+(vtest
   (eq? (valid-pitch? "ABcb3") #f) "Multiple letters detected")
 
-(ptest
+(vtest
   (not (eq? (valid-pitch? "g#b###532") #f)) "Multiple sharps and flats accepted")
 
 ; test different keys and time signatures
@@ -159,4 +162,5 @@
 (print-test-suites 
   my-test-suite
   my-test-suite2
-  piece-test-suite)
+  piece-test-suite
+  valid-pitch-test-suite)
