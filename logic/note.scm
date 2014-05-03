@@ -96,7 +96,7 @@
 		(accent-type (car accent)))
 	(cond ((string=? accent-type "#") (* semi-count 1))
 		((string=? accent-type "b") (* semi-count -1)))
-	(* semi-count accent-number))
+	(* semi-count accent-number)))
 
 
 (define (get-cent note)
@@ -110,7 +110,7 @@
 		((char=? pitch #\D) (- count (* 2 semitone)))
 		((char=? pitch #\A) (- count (* 3 semitone)))
 		((char=? pitch #\E) (- count (* 4 semitone)))
-		((char=? pitch #F) (- count (* 5 semitone)))
-		((char=? pitch #G) (- count (* 7 semitone))))
+		((char=? pitch #\F) (- count (* 5 semitone)))
+		((char=? pitch #\G) (- count (* 7 semitone))))
 	(+ count (cent-octave-count octave))
 	(+ count (get-accent-count accent)))
