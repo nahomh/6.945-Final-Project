@@ -55,14 +55,14 @@
 (ctest
   (let* ((new-chord (first-inversion basic-chord)) (first-note (car (get-notes new-chord))))
     (and
-      (eq? (get-pitch first-note) #\C)
-      (= (get-octave first-note) 3)))
+      (eq? (get-pitch-note first-note) #\C)
+      (= (get-octave-note first-note) 3)))
   "Chord inversion not working for basic chord")
 
 (ctest
   (let* ((new-chord (first-inversion unordered-chord)) (first-note (car (get-notes new-chord))))
     (and
-      (eq? (get-pitch first-note) #\A)
-      (= (get-octave first-note) 2)))
+      (eq? (get-pitch-note first-note) #\A)
+      (= (get-octave-note first-note) 2)))
   "Chord inversion not working for basic chord")
 

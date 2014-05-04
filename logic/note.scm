@@ -37,16 +37,16 @@
   (eq-put! note 'accent (list "b" 0)))
 
 
-  (define (get-pitch note)
+  (define (get-pitch-note note)
     (eq-get note 'pitch))
 
- (define (get-duration note)
+ (define (get-duration-note note)
     (eq-get note 'duration))
 
- (define (get-octave note)
+ (define (get-octave-note note)
     (eq-get note 'octave))
 
- (define (get-accent note)
+ (define (get-accent-note note)
     (eq-get note 'accent))
 
 
