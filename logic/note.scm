@@ -34,7 +34,20 @@
   (eq-put! note 'pitch #\C)
   (eq-put! note 'duration 0.25)
   (eq-put! note 'octave 4)
-  (eq-put! note 'accent '()))
+  (eq-put! note 'accent (list "b" 0)))
+
+
+  (define (get-pitch-note note)
+    (eq-get note 'pitch))
+
+ (define (get-duration-note note)
+    (eq-get note 'duration))
+
+ (define (get-octave-note note)
+    (eq-get note 'octave))
+
+ (define (get-accent-note note)
+    (eq-get note 'accent))
 
 
 (define (create-note pitch-string duration)
@@ -50,13 +63,18 @@
 (define note-add
   (make-generic-operator 2))
 
+(define (print-note note)
+  (pp (eq-get note 'type))
+  (pp (eq-get note 'pitch))
+  (pp (eq-get note 'octave))
+  (pp (eq-get note 'accent)))
+
 (defhandler note-add
   (lambda (note octave)
     (let ((current-octave (eq-get note 'octave)))
       (eq-put!
         note
         'octave
-        'data
         (+ octave current-octave)))
     note)
   note? valid-octave?)
@@ -80,9 +98,6 @@
 	(if (char? note)
 		(char->ascii note))
 )
-; ;check if it matches middle c
-; (define (is-middle? pitch octave accent)
-; 	(and (char=? pitch #\C) (= octave 4) (= 0 (cadr accent))))
 
 ;get added octave count
 (define (cent-octave-count octave)
@@ -102,12 +117,12 @@
 (define (attach-semitone pitch octave accent)
 	(cond 
 	((char=? pitch #\C) C4)
-	((char=? pitch #\B) (display 1)(- C4 semitone))
-	((char=? pitch #\D) (display "d")(+ C4 (* 2 semitone)))
-	((char=? pitch #\F)(display "f") (+ C4 (* 5 semitone)))
-	((char=? pitch #\A) (display "a")(- C4 (* 3 semitone)))
-	((char=? pitch #\E) (display "e")(+ C4 (* 4 semitone)))
-	((char=? pitch #\G) (display "G")(+ C4 (* 7 semitone)))))
+	((char=? pitch #\B) (- C4 semitone))
+	((char=? pitch #\D) (+ C4 (* 2 semitone)))
+	((char=? pitch #\F) (+ C4 (* 5 semitone)))
+	((char=? pitch #\A) (- C4 (* 3 semitone)))
+	((char=? pitch #\E) (+ C4 (* 4 semitone)))
+	((char=? pitch #\G) (+ C4 (* 7 semitone)))))
 
 (define (get-cent note)
 	(let ((pitch (eq-get note 'pitch))

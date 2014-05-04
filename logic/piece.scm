@@ -2,11 +2,7 @@
 
 ; This is the main file for the system allowing the user to
 ; call the enviornment and began to input musical notes and chords. 
-(load "load")
 ; going to use notes in midi, need one value
-(define c0midi 0)
-(define semitone 100) ; cents
-(define wholetone (* 2 semitone))
 ; define intervals in terms of semitones
 
 

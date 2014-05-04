@@ -25,3 +25,8 @@ To-Do
 		notes
 4. Nondeterministic composing
 5. Regexp for input validation DONE
+
+
+## Running the tests
+
+run the /tests/printer.scm file from the top level of the repository

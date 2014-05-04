@@ -1,16 +1,14 @@
-(cd "..")
 (load "load")
-(load "piece")
-(cd "tests")
-(load "harness")
-(load "examples")
-(load "chord")
-(load "harness")
-(load "note-ops")
-(load "note")
-(load "piece")
-(load "pitch-ops")
-(load "validation")
+(load "tests/harness")
+(load "tests/examples")
+(load "tests/chord")
+(load "tests/harness")
+(load "tests/measures")
+(load "tests/note-ops")
+(load "tests/note")
+(load "tests/piece")
+(load "tests/pitch-ops")
+(load "tests/validation")
 
 ; print test results
 (define nil '())
@@ -22,6 +20,7 @@
 )
 (print-test-suites 
   chord-test-suite
+  measures-test-suite
   my-test-suite
   my-test-suite2
   note-test-suite

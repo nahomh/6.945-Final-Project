@@ -8,7 +8,7 @@
       (eq? (eq-get note 'pitch) #\C)
       (= (eq-get note 'duration) 0.25)
       (eq? (eq-get note 'octave) 4)
-      (equal? (eq-get note 'accent) '())))
+      (equal? (eq-get note 'accent) (list "b" 0))))
   "Empty note not created correctly")
 
 (ntest
