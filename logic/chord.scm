@@ -17,11 +17,11 @@
 (define (empty-chord)
  (define-cell chord)
  (eq-put! chord 'type 'chord)
- (eq-put! chord 'data '())
+ (eq-put! chord 'notes '())
  chord)
 
   (define (get-notes chord)
-    (eq-get chord 'data))
+    (eq-get chord 'notes))
 
 ;Check if notes is actually a list of notes
 (define (create-chord . notes)
@@ -32,20 +32,20 @@
       "The set of notes passed in aren't valid")
     (else
       (let ((new-chord (empty-chord)))
-        (eq-put! new-chord 'data notes)
+        (eq-put! new-chord 'notes notes)
       new-chord))))
 
 (define (print-chord chord)
   (for-each
    (lambda (note)
      (print-note note))
-   (eq-get chord 'data)))
+   (eq-get chord 'notes)))
 
 (define (inversion chord order)
-  (let* ((new-chord (empty-chord)) (notes (sort-notes (eq-get chord 'data))) (last-note (list-ref notes (- (length notes) 1))))
+  (let* ((new-chord (empty-chord)) (notes (sort-notes (eq-get chord 'notes))) (last-note (list-ref notes (- (length notes) 1))))
     (eq-put! 
       new-chord
-      'data
+      'notes
       (append (list-head notes (- order 1)) (list (increase-octave (list-ref notes (- order 1)) last-note)) (list-tail notes order)))
   new-chord))
 

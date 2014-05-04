@@ -113,13 +113,13 @@
 
 
 (define (attach-semitone pitch)
-	(cond 
-	((char=? pitch #\C) C4)
-	((char=? pitch #\B) (- C4 semitone))
-	((char=? pitch #\D) (+ C4 (* 2 semitone)))
-	((char=? pitch #\F) (+ C4 (* 5 semitone)))
+  (cond 
 	((char=? pitch #\A) (- C4 (* 3 semitone)))
+  ((char=? pitch #\B) (- C4 semitone))
+  ((char=? pitch #\C) C4)
+  ((char=? pitch #\D) (+ C4 (* 2 semitone)))
 	((char=? pitch #\E) (+ C4 (* 4 semitone)))
+  ((char=? pitch #\F) (+ C4 (* 5 semitone)))
 	((char=? pitch #\G) (+ C4 (* 7 semitone)))))
 
 (define (get-cent note)

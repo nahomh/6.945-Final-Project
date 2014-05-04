@@ -19,10 +19,10 @@
   )
 )
 (print-test-suites 
-  chord-test-suite
-  measures-test-suite
   my-test-suite
   my-test-suite2
+  chord-test-suite
+  measures-test-suite
   note-test-suite
   piece-test-suite
   pitch-ops-test-suite

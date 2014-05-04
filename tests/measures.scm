@@ -2,20 +2,24 @@
 (define mtest (test measures-test-suite))
 
 (mtest
-  (eqv? (get-pitch "ab3") #\A)
+  (measure? (empty-measure))
+  "Empty Measure is a measure")
+
+(mtest
+  (equal? "4/4" (time-name (empty-measure)))
   "Empty Measure Defaults to 4/4")
 
 (mtest
-  (not (eqv? (get-pitch "ab3") #\a))
+  (= 0 (get-duration (empty-measure)))
   "Empty Measure Has Duration Of Zero")
 
 (mtest
-  (eqv? (get-pitch "gdfadb3") #\G)
+  (eq? '() (get-notes (empty-measure)))
   "Empty Measure Has No Notes")
 
-(mtest
-  (= (string-count "abbb" "b") 3)
-  "Empty Measure Has Type Measure")
+; (mtest
+;   (= (string-count "abbb" "b") 3)
+;   "Empty Measure Has Type Measure")
 
 ; (mtest
 ;   (= (string-count "a###" "#") 3)
