@@ -32,7 +32,7 @@
   (define-cell note)
   (eq-put! note 'type 'note)
   (eq-put! note 'pitch #\C)
-  (eq-put! note 'duration 0.25)
+  (eq-put! note 'duration (make-duration 0.25))
   (eq-put! note 'octave 4)
   (eq-put! note 'accent (list "b" 0)))
 
@@ -41,7 +41,7 @@
     "Not a valid pitch expression"
     (let ((new-note (empty-note)))
       (eq-put! new-note 'pitch (get-pitch pitch-string))
-      (eq-put! new-note 'duration duration)
+      (eq-put! new-note 'duration (make-duration duration))
       (eq-put! new-note 'accent (get-accent pitch-string))
       (eq-put! new-note 'octave (get-octave pitch-string))
       new-note)))

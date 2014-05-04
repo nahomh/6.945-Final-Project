@@ -30,6 +30,7 @@
 (define (new-piece #!optional pitch-str time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
+  (run)
   (define-cell piece)
   (eq-put! piece 'type 'piece)
   (eq-put! piece 'pitch #\C)

@@ -5,4 +5,6 @@
   duration-cell
 )
 
-(define empty-duration (make-duration 0))
+(define empty-duration 
+  (lambda ()
+    (make-duration 0)))

@@ -1,6 +1,6 @@
 (define measures-test-suite (test-suite-wrapper "Measures Suite"))
 (define mtest (test measures-test-suite))
-
+(run)
 (mtest
   (measure? (empty-measure))
   "Empty Measure is a measure")

@@ -22,4 +22,3 @@
 (load "logic/operation.scm")
 (load "logic/measures.scm")
 (load "logic/piece.scm")
-

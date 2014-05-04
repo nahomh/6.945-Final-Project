@@ -36,6 +36,9 @@
     (let (
           (duration-val (eq-get cell 'duration))
          )
+        ; (displaym "empty-duration" (empty-duration))
+        ; (displaym "make-duration" (make-duration 0))
+        ; (displaym "duration-val" duration-val)
         (if (cell? duration-val)
           (inquire duration-val)
           duration-val
