@@ -98,9 +98,6 @@
 	(if (char? note)
 		(char->ascii note))
 )
-; ;check if it matches middle c
-; (define (is-middle? pitch octave accent)
-; 	(and (char=? pitch #\C) (= octave 4) (= 0 (cadr accent))))
 
 ;get added octave count
 (define (cent-octave-count octave)
@@ -110,22 +107,22 @@
 ;get accent-value 
 (define (get-accent-count accent)
 	(let (
-		(semi-count 100)
+		(semi-count 0)
 		(accent-number (cadr accent))
 		(accent-type (car accent)))
-	(cond ((string=? accent-type "#") (* semi-count 1))
-		((string=? accent-type "b") (* semi-count -1)))
-	(* semi-count accent-number)))
+	(cond ((string=? accent-type "#") (* (+ semi-count 100) accent-number))
+		((string=? accent-type "b") (* (- semi-count 100) accent-number)))))
+
 
 (define (attach-semitone pitch octave accent)
 	(cond 
 	((char=? pitch #\C) C4)
-	((char=? pitch #\B) (display 1)(- C4 semitone))
-	((char=? pitch #\D) (display "d")(+ C4 (* 2 semitone)))
-	((char=? pitch #\F)(display "f") (+ C4 (* 5 semitone)))
-	((char=? pitch #\A) (display "a")(- C4 (* 3 semitone)))
-	((char=? pitch #\E) (display "e")(+ C4 (* 4 semitone)))
-	((char=? pitch #\G) (display "G")(+ C4 (* 7 semitone)))))
+	((char=? pitch #\B) (- C4 semitone))
+	((char=? pitch #\D) (+ C4 (* 2 semitone)))
+	((char=? pitch #\F) (+ C4 (* 5 semitone)))
+	((char=? pitch #\A) (- C4 (* 3 semitone)))
+	((char=? pitch #\E) (+ C4 (* 4 semitone)))
+	((char=? pitch #\G) (+ C4 (* 7 semitone)))))
 
 (define (get-cent note)
 	(let ((pitch (eq-get note 'pitch))

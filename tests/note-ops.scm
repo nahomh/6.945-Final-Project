@@ -1,9 +1,6 @@
 (define note-test-suite (test-suite-wrapper "Note Operations Suite"))
 (define notest (test note-test-suite))
 
-(notest
-  (eq? (is-middle? #\C 4 '("#" 0)) #t)
-    "is-middle should return true for C4 with 0 sharp/flats")
 
 (notest
   (= (cent-octave-count 4) 0)
@@ -32,3 +29,17 @@
 (notest
   (= (get-cent (create-note "F#4" 2)) 600)
   "should return 600")
+
+(notest
+  (= (get-cent (create-note "F##4" 2)) 700)
+  "should return 700")
+(notest
+  (= (get-cent (create-note "F4" 2)) 500)
+  "should return 500")
+(notest
+  (= (get-cent (create-note "Fb4" 2)) 400)
+  "should return 400")
+(notest
+  (= (get-cent (create-note "C4" 2)) 0)
+  "should return 0")
+
