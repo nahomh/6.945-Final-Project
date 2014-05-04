@@ -50,10 +50,10 @@
 
 ;Test key transposing stuff
 (define piece5 (new-piece 'Bb))
-(define piece5 (new-piece 'G##))
+(define piece6 (new-piece 'G##))
 
 (ptest
-  (= (get-key-value piece5) -200)
+  (= (get-key-value (piece5 'get 'key)) -200)
   "Correct value of key")
 
 (ptest
