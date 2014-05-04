@@ -52,7 +52,7 @@
 
   ; testing duration propagation
   (mtest
-    (interval-equal? (get-duration one-note-measure) (make-interval 0 4))
+    (= (get-duration one-note-measure) 0.25)
     "Measure has duration of single note")
   (mtest
     (= (get-duration two-note-measure) 0.75)
@@ -73,6 +73,7 @@
   (displaym "2note" (get-duration two-note-measure))
   (displaym "3note" (get-duration three-note-measure))
   (displaym "4note" (get-duration four-note-measure))
+  ; (displaym "4note1" (get-duration four1-note-measure))
 )
 
 ; (mtest
