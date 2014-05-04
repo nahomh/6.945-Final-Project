@@ -28,3 +28,7 @@
 (notest
   (= (get-accent-count '("b" 0)) 0)
   "should return 0")
+
+(notest
+  (= (get-cent (create-note "F#4" 2)) 600)
+  "should return 600")
