@@ -17,6 +17,8 @@
 (load "logic/interval.scm")
 (load "logic/note.scm")
 (load "logic/operation.scm")
+(load "logic/measures.scm")
+(load "logic/piece.scm")
 
 
 ; (load "tests.scm")

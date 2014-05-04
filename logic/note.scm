@@ -102,12 +102,12 @@
 (define (attach-semitone pitch octave accent)
 	(cond 
 	((char=? pitch #\C) C4)
-	((char=? pitch #\B) (display 1)(- C4 semitone))
-	((char=? pitch #\D) (display "d")(+ C4 (* 2 semitone)))
-	((char=? pitch #\F)(display "f") (+ C4 (* 5 semitone)))
-	((char=? pitch #\A) (display "a")(- C4 (* 3 semitone)))
-	((char=? pitch #\E) (display "e")(+ C4 (* 4 semitone)))
-	((char=? pitch #\G) (display "G")(+ C4 (* 7 semitone)))))
+	((char=? pitch #\B) (- C4 semitone))
+	((char=? pitch #\D) (+ C4 (* 2 semitone)))
+	((char=? pitch #\F) (+ C4 (* 5 semitone)))
+	((char=? pitch #\A) (- C4 (* 3 semitone)))
+	((char=? pitch #\E) (+ C4 (* 4 semitone)))
+	((char=? pitch #\G) (+ C4 (* 7 semitone)))))
 
 (define (get-cent note)
 	(let ((pitch (eq-get note 'pitch))
