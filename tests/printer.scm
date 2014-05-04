@@ -28,4 +28,5 @@
   pitch-ops-test-suite
   valid-pitch-test-suite
   valid-octave-test-suite
-  valid-time-test-suite)
+  valid-time-test-suite
+  )

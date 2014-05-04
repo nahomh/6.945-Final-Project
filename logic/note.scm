@@ -36,20 +36,6 @@
   (eq-put! note 'octave 4)
   (eq-put! note 'accent (list "b" 0)))
 
-
-  (define (get-pitch-note note)
-    (eq-get note 'pitch))
-
- (define (get-duration-note note)
-    (eq-get note 'duration))
-
- (define (get-octave-note note)
-    (eq-get note 'octave))
-
- (define (get-accent-note note)
-    (eq-get note 'accent))
-
-
 (define (create-note pitch-string duration)
   (if (not (valid-pitch? pitch-string))
     "Not a valid pitch expression"
@@ -57,7 +43,7 @@
       (eq-put! new-note 'pitch (get-pitch pitch-string))
       (eq-put! new-note 'duration duration)
       (eq-put! new-note 'accent (get-accent pitch-string))
-      (eq-put! new-note 'octave (get-octave-num pitch-string))
+      (eq-put! new-note 'octave (get-octave pitch-string))
       new-note)))
 
 (define note-add

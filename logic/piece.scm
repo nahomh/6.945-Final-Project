@@ -149,9 +149,9 @@
       (begin 
         (eq-put! piece 'pitch (get-pitch pitch-str))
         (eq-put! piece 'accent (get-accent pitch-str))
-        (if (equal? "" (get-octave pitch-str))
+        (if (equal? "" (str:get-octave-str pitch-str))
           #f
-          (eq-put! piece 'octave (get-octave-num pitch-str))
+          (eq-put! piece 'octave (get-octave pitch-str))
         )
       )
       (displaym "Invalid Pitch String" pitch-str)

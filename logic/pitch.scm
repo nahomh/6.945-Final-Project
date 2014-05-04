@@ -4,10 +4,10 @@
     (length (string-search-all pattern str))))
 
 
-(define (get-pitch pitch-string)
+(define (str:get-pitch pitch-string)
   (string-ref (string-upcase pitch-string) 0))
 
-(define (get-accent pitch-string)
+(define (str:get-accent pitch-string)
   (let* 
     (
      (pitch-substr (string-tail pitch-string 1))
@@ -20,7 +20,7 @@
       (list "b" (abs difference)))))
 
 
-(define (get-octave pitch-string)
+(define (str:get-octave-str pitch-string)
   (let* (
     (last-flat (string-search-backward "b" pitch-string))
     (last-sharp (string-search-backward "#" pitch-string)))
@@ -36,8 +36,8 @@
       (else
         (string-tail pitch-string (max last-flat last-sharp))))))
 
-(define (get-octave-num pitch-string)
-  (let ((octave-str (get-octave pitch-string)))
+(define (str:get-octave pitch-string)
+  (let ((octave-str (str:get-octave-str pitch-string)))
     (if (equal? "" octave-str) 
       4 (string->number octave-str)))
 )
