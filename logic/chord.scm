@@ -41,13 +41,13 @@
      (print-note note))
    (eq-get chord 'data)))
 
-(define (first-inversion chord)
-  (let ((notes (sort-notes (eq-get chord 'data))))
+(define (inversion chord order)
+  (let ((new-chord (empty-chord)) (notes (sort-notes (eq-get chord 'data))))
     (eq-put! 
-      chord
+      new-chord
       'data
-      (cons (note-add (car notes) 1) (cdr notes))))
-  chord)
+      (append (list-head notes (- order 1)) (list (note-add (list-ref notes (- order 1)) 1)) (list-tail notes order)))
+  new-chord))
 
 
 
