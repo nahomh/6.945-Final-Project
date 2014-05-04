@@ -34,7 +34,7 @@
   (eq-put! note 'pitch #\C)
   (eq-put! note 'duration 0.25)
   (eq-put! note 'octave 4)
-  (eq-put! note 'accent '()))
+  (eq-put! note 'accent (list "b" 0)))
 
 
 (define (create-note pitch-string duration)
@@ -50,13 +50,18 @@
 (define note-add
   (make-generic-operator 2))
 
+(define (print-note note)
+  (pp (eq-get note 'type))
+  (pp (eq-get note 'pitch))
+  (pp (eq-get note 'octave))
+  (pp (eq-get note 'accent)))
+
 (defhandler note-add
   (lambda (note octave)
     (let ((current-octave (eq-get note 'octave)))
       (eq-put!
         note
         'octave
-        'data
         (+ octave current-octave)))
     note)
   note? valid-octave?)
@@ -101,9 +106,9 @@
 
 
 (define (get-cent note)
-	(let ((pitch (eq-get! note 'pitch))
-		(octave (eq-get! note 'octave))
-		(accent (eq-get! note 'accent))
+	(let ((pitch (eq-get note 'pitch))
+		(octave (eq-get note 'octave))
+		(accent (eq-get note 'accent))
 		(count 0))
 	;get the ascii value for the note
 	(if (is-middle? pitch octave accent) C4)

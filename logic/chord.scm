@@ -38,7 +38,7 @@
     (eq-put! 
       chord
       'data
-      (cons (add (car notes) 1) (cdr notes))))
+      (cons (note-add (car notes) 1) (cdr notes))))
   chord)
 
 
