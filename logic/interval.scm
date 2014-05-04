@@ -32,10 +32,6 @@
 		(start-note-cent (get-cent start-note))
 		(end-note-cent (get-cent end-note))
 		)
-		(displaym "This value of start note is" start-note-cent)
-		(display "This value of end-note is:")
-		(display end-note-cent)
-		(display "This value of semitones is:")
 		(let (
 			(semi-tone-difference (/ (- start-note-cent end-note-cent) 100))
 			)

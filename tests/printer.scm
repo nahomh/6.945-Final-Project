@@ -3,12 +3,14 @@
 (load "tests/examples")
 (load "tests/chord")
 (load "tests/harness")
+(load "tests/interval")
 (load "tests/measures")
 (load "tests/note-ops")
 (load "tests/note")
 (load "tests/piece")
 (load "tests/pitch-ops")
 (load "tests/validation")
+
 
 ; print test results
 (define nil '())
@@ -20,6 +22,7 @@
 )
 (print-test-suites 
   chord-test-suite
+  interval-test-suite
   measures-test-suite
   my-test-suite
   my-test-suite2
