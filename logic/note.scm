@@ -85,9 +85,9 @@
 	(if (char? note)
 		(char->ascii note))
 )
-;check if it matches middle c
-(define (is-middle? pitch octave accent)
-	(and (char=? pitch #\C) (= octave 4) (= 0 (cadr accent))))
+; ;check if it matches middle c
+; (define (is-middle? pitch octave accent)
+; 	(and (char=? pitch #\C) (= octave 4) (= 0 (cadr accent))))
 
 ;get added octave count
 (define (cent-octave-count octave)
@@ -106,7 +106,7 @@
 
 (define (attach-semitone pitch octave accent)
 	(cond 
-	((is-middle? pitch octave accent) C4)
+	((char=? pitch #\C) C4)
 	((char=? pitch #\B) (display 1)(- C4 semitone))
 	((char=? pitch #\D) (display "d")(+ C4 (* 2 semitone)))
 	((char=? pitch #\F)(display "f") (+ C4 (* 5 semitone)))
@@ -120,6 +120,9 @@
 		(accent (eq-get note 'accent))
 		(count 0))
 	;get the ascii value for the note
+	(display (attach-semitone pitch octave accent))
+	(display (cent-octave-count octave))
+	(display (attach-semitone pitch octave accent))
 	(+ (attach-semitone pitch octave accent) (cent-octave-count octave) (get-accent-count accent))))
 
 ;TODO
