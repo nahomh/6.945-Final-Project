@@ -80,9 +80,6 @@
 	(if (char? note)
 		(char->ascii note))
 )
-; ;check if it matches middle c
-; (define (is-middle? pitch octave accent)
-; 	(and (char=? pitch #\C) (= octave 4) (= 0 (cadr accent))))
 
 ;get added octave count
 (define (cent-octave-count octave)
