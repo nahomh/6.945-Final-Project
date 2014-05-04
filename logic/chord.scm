@@ -20,9 +20,6 @@
  (eq-put! chord 'notes '())
  chord)
 
-  (define (get-notes chord)
-    (eq-get chord 'notes))
-
 ;Check if notes is actually a list of notes
 (define (create-chord . notes)
   (cond 
