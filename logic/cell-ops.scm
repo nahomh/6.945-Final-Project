@@ -3,6 +3,7 @@
 
 (defhandler get-pitch 
   str:get-pitch string?)
+
 (defhandler get-pitch 
   (lambda(cell)
     (eq-get cell 'pitch)) cell?)
@@ -70,4 +71,14 @@
 ; get notes
 (define (get-notes cell)
   (eq-get cell 'notes)
+)
+
+; get numer-time
+(define (get-numer cell)
+  (eq-get cell 'numer-time)
+)
+
+; get denom-time
+(define (get-denom cell)
+  (eq-get cell 'denom-time)
 )

@@ -2,7 +2,7 @@
 (load "tests/harness")
 (load "tests/examples")
 (load "tests/chord")
-(load "tests/harness")
+(load "tests/duration")
 (load "tests/interval")
 (load "tests/measures")
 (load "tests/note-ops")
@@ -24,6 +24,7 @@
   my-test-suite
   my-test-suite2
   chord-test-suite
+  duration-test-suite
   interval-test-suite
   measures-test-suite
   note-test-suite

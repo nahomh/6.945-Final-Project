@@ -46,6 +46,10 @@
       (eq-put! new-note 'octave (get-octave pitch-string))
       new-note)))
 
+(define (copy-note note)
+  (note-add note 0)
+)
+
 (define note-add
   (make-generic-operator 2))
 
