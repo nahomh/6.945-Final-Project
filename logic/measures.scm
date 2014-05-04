@@ -6,4 +6,3 @@
   (eq-put! measure 'duration 0)
   (eq-put! measure 'notes '()))
 
-

@@ -13,6 +13,7 @@
 ; load all the logic files for the enviornment
 (load "logic/regexp.scm")
 (load "logic/validation.scm")
+(load "logic/duration.scm")
 (load "logic/pitch.scm")
 (load "logic/cell-ops.scm")
 (load "logic/note.scm")

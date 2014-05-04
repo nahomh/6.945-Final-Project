@@ -5,7 +5,8 @@
 
 ;create a new interval with the starting note, ending note.
 
-;make the associations
+; make the associations
+
 
 (define interval-names
 	(make-eq-hash-table))

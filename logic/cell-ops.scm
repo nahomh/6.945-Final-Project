@@ -33,7 +33,14 @@
 
 (defhandler get-duration 
   (lambda(cell)
-    (eq-get cell 'duration)) cell?)
+    (let (
+          (duration-val (eq-get cell 'duration))
+         )
+        (if (cell? duration-val)
+          (inquire duration-val)
+          duration-val
+        )
+    )) cell?)
 
 
 ; get the key name

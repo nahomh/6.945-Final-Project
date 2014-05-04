@@ -31,6 +31,7 @@
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
   (define-cell piece)
+  (eq-put! piece 'type 'piece)
   (eq-put! piece 'pitch #\C)
   (eq-put! piece 'accent (list "b" 0))
   (eq-put! piece 'octave 4)
