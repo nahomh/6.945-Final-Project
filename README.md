@@ -29,4 +29,4 @@ To-Do
 
 ## Running the tests
 
-cd into /tests and run the printer.scm file
+run the /tests/printer.scm file from the top level of the repository
