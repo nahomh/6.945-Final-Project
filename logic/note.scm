@@ -71,12 +71,24 @@
 
 (defhandler note-add
   (lambda (note octave)
-    (let ((current-octave (eq-get note 'octave)))
+    (let ((current-octave (eq-get note 'octave)) (new-note (empty-note)))
       (eq-put!
-        note
+        new-note
         'octave
-        (+ octave current-octave)))
-    note)
+        (+ octave current-octave))
+      (eq-put!
+        new-note
+        'pitch
+        (get-pitch-note note))
+      (eq-put!
+        new-note
+        'duration
+        (get-duration-note note))
+      (eq-put!
+        new-note
+        'accent
+        (get-accent-note note))
+    new-note))
   note? valid-octave?)
 
 
@@ -114,7 +126,7 @@
 		((string=? accent-type "b") (* (- semi-count 100) accent-number)))))
 
 
-(define (attach-semitone pitch octave accent)
+(define (attach-semitone pitch)
 	(cond 
 	((char=? pitch #\C) C4)
 	((char=? pitch #\B) (- C4 semitone))
@@ -130,9 +142,14 @@
 		(accent (eq-get note 'accent))
 		(count 0))
 	;get the ascii value for the note
-	(display (attach-semitone pitch octave accent))
+	(display (attach-semitone pitch))
 	(display (cent-octave-count octave))
-	(display (attach-semitone pitch octave accent))
-	(+ (attach-semitone pitch octave accent) (cent-octave-count octave) (get-accent-count accent))))
+	(display (attach-semitone pitch))
+	(+ (attach-semitone pitch) (cent-octave-count octave) (get-accent-count accent))))
+
+(define (increase-octave note1 note2)
+  (if (> (attach-semitone (get-pitch-note note1)) (attach-semitone (get-pitch-note note2)))
+    (note-add note1 (- (get-octave-note note2) (get-octave-note note1)))
+    (note-add note1 (+ (- (get-octave-note note2) (get-octave-note note1)) 1))))
 
 ;TODO

@@ -52,28 +52,28 @@
   (let* ((new-chord (inversion basic-chord 1)) (first-note (car (get-notes new-chord))))
     (and
       (eq? (get-pitch-note first-note) #\C)
-      (= (get-octave-note first-note) 3)))
+      (= (get-octave-note first-note) 9)))
   "First order chord inversion not working for basic chord")
 
 (ctest
   (let* ((new-chord (inversion unordered-chord 1)) (first-note (car (get-notes new-chord))))
     (and
       (eq? (get-pitch-note first-note) #\A)
-      (= (get-octave-note first-note) 2)))
+      (= (get-octave-note first-note) 7)))
   "First order chord inversion not working for unordered chord")
 
 (ctest
   (let* ((new-chord (inversion basic-chord 2)) (second-note (cadr (get-notes new-chord))))
     (and
       (eq? (get-pitch-note second-note) #\D)
-      (= (get-octave-note second-note) 7)))
+      (= (get-octave-note second-note) 9)))
   "Second order chord inversion not working for basic chord")
 
 (ctest
   (let* ((new-chord (inversion unordered-chord 2)) (second-note (cadr (get-notes new-chord))))
     (and
       (eq? (get-pitch-note second-note) #\B)
-      (= (get-octave-note second-note) 6)))
+      (= (get-octave-note second-note) 7)))
   "Second order chord inversion not working for unordered chord")
 
 
