@@ -41,4 +41,14 @@
       (equal? (get-accent note) (list "#" 1))))
   "Note 3 not created correctly")
 
+;Tests for adding accents
+
+(ntest
+  (equal? (add-accent #\G -300) "G##")
+  "Correctly picks the lower number of sharps or flats to use")
+
+
+(ntest
+  (equal? (add-accent #\B -300) "Bbb")
+  "Flats working")
 

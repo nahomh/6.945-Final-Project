@@ -37,6 +37,7 @@
 
 (interval-associations)
 
+
 (define (interval start-note end-note)
 	(let (
 		(start-note-cent (get-cent start-note))
@@ -46,9 +47,9 @@
 			(semi-tone-difference (/ (- start-note-cent end-note-cent) 100))
 			)
 		(displaym "semi" semi-tone-difference)
-		(if (> semi-tone-difference 0) 
-			(hash-table/get interval-names semi-tone-difference 0)
-			(hash-table/get interval-names (* semi-tone-difference -1) 0)
+		(if (> (abs semi-tone-difference) 12)
+			(hash-table/get interval-names (modulo (abs semi-tone-difference) 12) 0)
+			(hash-table/get interval-names (abs semi-tone-difference) 0)
 		)
 	)
 )

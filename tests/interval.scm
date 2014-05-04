@@ -16,6 +16,8 @@
   "should return m6 due to semitone value of 8")
 
 
-; (intest
-;   (string=? (interval (create-note "F4" 2) (create-note "A8" 2)) "m30")
-;   "should return m30 due to semitone value of 8")
+(intest
+  (string=? (interval (create-note "E4" 2) (create-note "A2" 2)) "P5")
+  "should return P5 due to semitone value of 31")
+
+

@@ -26,7 +26,43 @@
 ; second/third/fourth… = flat/sharp
 ; last = octave
 
+(define semitone 100)
+(define tone 200)
 
+
+(define major-tones
+  (list tone tone semitone tone tone tone semitone))
+
+(define minor-tones
+  (list tone semitone tone tone semitone tone tone))
+
+(define locrian-tones
+  (list semitone tone tone semitone tone tone tone))
+
+(define dorian-tones
+  (list tone semitone tone tone tone semitone tone))
+
+(define phrygian-tones
+  (list semitone tone tone tone semitone tone tone))
+
+(define lydian-tones
+  (list tone tone tone semitone tone tone semitone))
+
+(define mixolydian-tones
+  (list tone tone semitone tone tone semitone tone))
+
+(define (modded-val val)
+  (- (modulo (+ 300 val) 1200) 300))
+
+(define (get-next-pitch pitch)
+  (cond
+    ((char=? pitch #\C) #\D)
+    ((char=? pitch #\B) #\C)
+    ((char=? pitch #\D) #\E)
+    ((char=? pitch #\F) #\G)
+    ((char=? pitch #\A) #\B)
+    ((char=? pitch #\E) #\F)
+    ((char=? pitch #\G) #\A)))
 
 (define (empty-note)
   (define-cell note)
@@ -92,7 +128,6 @@
 ;default case C4--> 0
 
 (define C4 0)
-(define semitone 100)
 
 (define (get-ascii note)
 	(if (string? note)
@@ -126,6 +161,28 @@
   ((char=? pitch #\F) (+ C4 (* 5 semitone)))
 	((char=? pitch #\G) (+ C4 (* 7 semitone)))))
 
+; (define (pitch-value pitch)
+;   (cond 
+;   ((char=? pitch #\A) 0)
+;   ((char=? pitch #\B) 200)
+;   ((char=? pitch #\C) 300)
+;   ((char=? pitch #\D) 500)
+;   ((char=? pitch #\E) 700)
+;   ((char=? pitch #\F) 800)
+;   ((char=? pitch #\G) 1000)))
+
+; (define (get-pitch-for-value val)
+;   (let ((mod-val  (modulo val octave)))
+;     (cond
+;       ((= val 0) #\A)
+;       ((= val 200) #\B)
+;       ((= val 300) #\C)
+;       ((= val 500) #\D)
+;       ((= val 700) #\E)
+;       ((= val 800) #\F)
+;       ((= val 1000) #\G))))
+
+
 (define (get-cent note)
 	(let ((pitch (eq-get note 'pitch))
 		(octave (eq-get note 'octave))
@@ -142,4 +199,39 @@
     (note-add note1 (- (get-octave note2) (get-octave note1)))
     (note-add note1 (+ (- (get-octave note2) (get-octave note1)) 1))))
 
+
+(define (add-accent pitch-char note-value)
+  (define (modify-accent pitch pitch-val note-val accent-str accent-val)
+    (define (add-to-string pitch-v str)
+      (if (= pitch-v note-val)
+        str
+        (add-to-string (modded-val (+ pitch-v accent-val)) (string-append str accent-str))))
+    (add-to-string pitch-val (string pitch)))
+  (let* 
+    ((mod-note-value (modded-val note-value))
+    (pitch-value (modded-val (attach-semitone pitch-char)))
+    (diff (modded-val (- mod-note-value pitch-value))))
+    (cond
+     ((> diff 0)
+      (modify-accent pitch-char pitch-value mod-note-value "#" 100))
+     ((= pitch-value mod-note-value)
+      (string pitch-char))
+     (else
+      (modify-accent pitch-char pitch-value mod-note-value "b" -100)))))
+
 ;TODO
+
+(define note-values
+	(make-eq-hash-table))
+
+(define (set-note-values)
+	(hash-table/put! note-values -300 #\A)
+	(hash-table/put! note-values -100 #\B)
+	(hash-table/put! note-values  0 #\C)
+	(hash-table/put! note-values 200 #\D)
+	(hash-table/put! note-values 400 #\E)
+	(hash-table/put! note-values 500 #\F)
+	(hash-table/put! note-values 700 #\G)
+	)
+
+(set-note-values)
