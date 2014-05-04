@@ -92,12 +92,12 @@
 ;get accent-value 
 (define (get-accent-count accent)
 	(let (
-		(semi-count 100)
+		(semi-count 0)
 		(accent-number (cadr accent))
 		(accent-type (car accent)))
-	(cond ((string=? accent-type "#") (* semi-count 1))
-		((string=? accent-type "b") (* semi-count -1)))
-	(* semi-count accent-number)))
+	(cond ((string=? accent-type "#") (* (+ semi-count 100) accent-number))
+		((string=? accent-type "b") (* (- semi-count 100) accent-number)))))
+
 
 (define (attach-semitone pitch octave accent)
 	(cond 
