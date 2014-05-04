@@ -72,21 +72,25 @@
 
 
 (potest
-  (equal? (get-octave "ab##") "")
+  (equal? (str:get-octave-str "ab##") "")
   "get-octave should defualt to ''")
 
 (potest
-  (= (get-octave-num "ab##") 4)
+  (= (get-octave "ab##") 4)
   "get-octave should defualt to 4")
 
 (potest
-  (= (get-octave-num "ab##1") 1)
+  (= (get-octave "ab##1") 1)
   "get-octave should be 1 for ab##1")
 
 (potest
-  (= (get-octave-num "ab##123") 123)
+  (= (get-octave "ab##123") 123)
   "get-octave should be 123 for ab##123")
 
+
+(potest
+  (= (get-octave "F8") 8)
+  "get-octave should be 8 for F8")
 ; (potest
 ;   (valid-octave? 6)
 ;   "6 is valid octave")

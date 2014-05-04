@@ -5,7 +5,17 @@
 
 ;create a new interval with the starting note, ending note.
 
-;make the associations
+; make the associations
+; Logic for intervals in a music representations. 
+
+; Here we define the logic for intervals. 
+
+; Specfication examples:
+; (interval c g) → (‘interval c4 g4 P5)
+; (interval b3 d3) → (‘interval b3 d3 m3)
+; (interval c e) → (‘interval c4 e4 M3)
+; (interval 2) → number of semitones
+; (interval “P5”) → name of interval
 
 (define interval-names
 	(make-eq-hash-table))
@@ -27,22 +37,19 @@
 
 (interval-associations)
 
+
 (define (interval start-note end-note)
 	(let (
 		(start-note-cent (get-cent start-note))
 		(end-note-cent (get-cent end-note))
 		)
-		(displaym "This value of start note is" start-note-cent)
-		(display "This value of end-note is:")
-		(display end-note-cent)
-		(display "This value of semitones is:")
 		(let (
 			(semi-tone-difference (/ (- start-note-cent end-note-cent) 100))
 			)
 		(displaym "semi" semi-tone-difference)
-		(if (> semi-tone-difference 0) 
-			(hash-table/get interval-names semi-tone-difference 0)
-			(hash-table/get interval-names (* semi-tone-difference -1) 0)
+		(if (> (abs semi-tone-difference) 12)
+			(hash-table/get interval-names (modulo (abs semi-tone-difference) 12) 0)
+			(hash-table/get interval-names (abs semi-tone-difference) 0)
 		)
 	)
 )

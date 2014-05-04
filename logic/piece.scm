@@ -28,24 +28,6 @@
 (define (get-last-elem lst)
   (list-ref lst (- (length lst) 1)))
 
-(define (key-name cell)
-  (let (
-        (pitch (string (eq-get cell 'pitch)))
-        (accent (car (eq-get cell 'accent)))
-        (num-accent (cadr (eq-get cell 'accent)))
-       )
-      ; (displaym "pitch" pitch)
-      ; (displaym "accent" accent)
-      ; (displaym "num-accent" num-accent)
-      (string pitch (make-string num-accent (string-ref accent 0)))
-  )
-)
-
-(define (time-name cell)
-  (string-append 
-    (number->string (eq-get cell 'numer-time))
-    "/"
-    (number->string (eq-get cell 'denom-time))))
 
 (define (get-pitch-list-from-key key)
   (define (add-to-list lst)
@@ -77,7 +59,9 @@
 (define (new-piece #!optional pitch-str time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
+  (run)
   (define-cell piece)
+  (eq-put! piece 'type 'piece)
   (eq-put! piece 'pitch #\C)
   (eq-put! piece 'accent (list "b" 0))
   (eq-put! piece 'octave 4)
@@ -178,9 +162,9 @@
       (begin 
         (eq-put! piece 'pitch (get-pitch pitch-str))
         (eq-put! piece 'accent (get-accent pitch-str))
-        (if (equal? "" (get-octave pitch-str))
+        (if (equal? "" (str:get-octave-str pitch-str))
           #f
-          (eq-put! piece 'octave (get-octave-num pitch-str))
+          (eq-put! piece 'octave (get-octave pitch-str))
         )
       )
       (displaym "Invalid Pitch String" pitch-str)

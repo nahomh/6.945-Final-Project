@@ -68,32 +68,18 @@
   (define-cell note)
   (eq-put! note 'type 'note)
   (eq-put! note 'pitch #\C)
-  (eq-put! note 'duration 0.25)
+  (eq-put! note 'duration (make-duration 0.25))
   (eq-put! note 'octave 4)
   (eq-put! note 'accent (list "b" 0)))
-
-
-  (define (get-pitch-note note)
-    (eq-get note 'pitch))
-
- (define (get-duration-note note)
-    (eq-get note 'duration))
-
- (define (get-octave-note note)
-    (eq-get note 'octave))
-
- (define (get-accent-note note)
-    (eq-get note 'accent))
-
 
 (define (create-note pitch-string duration)
   (if (not (valid-pitch? pitch-string))
     "Not a valid pitch expression"
     (let ((new-note (empty-note)))
       (eq-put! new-note 'pitch (get-pitch pitch-string))
-      (eq-put! new-note 'duration duration)
+      (eq-put! new-note 'duration (make-duration duration))
       (eq-put! new-note 'accent (get-accent pitch-string))
-      (eq-put! new-note 'octave (get-octave-num pitch-string))
+      (eq-put! new-note 'octave (get-octave pitch-string))
       new-note)))
 
 (define note-add
@@ -115,15 +101,15 @@
       (eq-put!
         new-note
         'pitch
-        (get-pitch-note note))
+        (get-pitch note))
       (eq-put!
         new-note
         'duration
-        (get-duration-note note))
+        (get-duration note))
       (eq-put!
         new-note
         'accent
-        (get-accent-note note))
+        (get-accent note))
     new-note))
   note? valid-octave?)
 
@@ -162,13 +148,13 @@
 
 
 (define (attach-semitone pitch)
-	(cond 
-	((char=? pitch #\C) C4)
-	((char=? pitch #\B) (- C4 semitone))
-	((char=? pitch #\D) (+ C4 (* 2 semitone)))
-	((char=? pitch #\F) (+ C4 (* 5 semitone)))
+  (cond 
 	((char=? pitch #\A) (- C4 (* 3 semitone)))
+  ((char=? pitch #\B) (- C4 semitone))
+  ((char=? pitch #\C) C4)
+  ((char=? pitch #\D) (+ C4 (* 2 semitone)))
 	((char=? pitch #\E) (+ C4 (* 4 semitone)))
+  ((char=? pitch #\F) (+ C4 (* 5 semitone)))
 	((char=? pitch #\G) (+ C4 (* 7 semitone)))))
 
 ; (define (pitch-value pitch)
@@ -205,9 +191,9 @@
 	(+ (attach-semitone pitch) (cent-octave-count octave) (get-accent-count accent))))
 
 (define (increase-octave note1 note2)
-  (if (> (attach-semitone (get-pitch-note note1)) (attach-semitone (get-pitch-note note2)))
-    (note-add note1 (- (get-octave-note note2) (get-octave-note note1)))
-    (note-add note1 (+ (- (get-octave-note note2) (get-octave-note note1)) 1))))
+  (if (> (attach-semitone (get-pitch note1)) (attach-semitone (get-pitch note2)))
+    (note-add note1 (- (get-octave note2) (get-octave note1)))
+    (note-add note1 (+ (- (get-octave note2) (get-octave note1)) 1))))
 
 
 (define (add-accent pitch-char note-value)

@@ -17,7 +17,7 @@
 (ctest
   (let ((chord (empty-chord)))
     (eq? (eq-get chord 'type) 'chord)
-    (eq? (eq-get chord 'data) '()))
+    (eq? (eq-get chord 'notes) '()))
   "Empty note create correctly")
 
 (ctest
@@ -26,7 +26,7 @@
       (create-note "Abb23" 0.5) 
       (create-note "b#b#b" 0.5) 
       (create-note "B#b#543" 0.5))))
-    (= (length (eq-get chord 'data)) 3))
+    (= (length (eq-get chord 'notes)) 3))
   "Correct length of notes")
 
 (ctest
@@ -34,7 +34,7 @@
     (chord (create-chord 
       (create-note "Abb23" 0.5) 
       (create-note "b#b#b" 0.5) )))
-    (eq? chord "Must have three or more notes in a chord"))
+    (not (eq? chord "Must have three or more notes in a chord")))
   "This should fail: Requires 3 or more notes correctly")
 
 
@@ -44,37 +44,34 @@
       (create-note "Abb23" 0.5) 
       (create-note "b#b#b" 0.5) 
       'b)))
-    (eq? chord "The set of notes passed in aren't valid"))
+    (not (eq? chord "The set of notes passed in aren't valid")))
   "This should fail: Ensures all notes in chord are valid notes")
 
 
 (ctest
   (let* ((new-chord (inversion basic-chord 1)) (first-note (car (get-notes new-chord))))
     (and
-      (eq? (get-pitch-note first-note) #\C)
-      (= (get-octave-note first-note) 9)))
+      (eq? (get-pitch first-note) #\C)
+      (= (get-octave first-note) 9)))
   "First order chord inversion not working for basic chord")
 
 (ctest
   (let* ((new-chord (inversion unordered-chord 1)) (first-note (car (get-notes new-chord))))
     (and
-      (eq? (get-pitch-note first-note) #\A)
-      (= (get-octave-note first-note) 7)))
+      (eq? (get-pitch first-note) #\A)
+      (= (get-octave first-note) 7)))
   "First order chord inversion not working for unordered chord")
 
 (ctest
   (let* ((new-chord (inversion basic-chord 2)) (second-note (cadr (get-notes new-chord))))
     (and
-      (eq? (get-pitch-note second-note) #\D)
-      (= (get-octave-note second-note) 9)))
+      (eq? (get-pitch second-note) #\D)
+      (= (get-octave second-note) 9)))
   "Second order chord inversion not working for basic chord")
 
 (ctest
   (let* ((new-chord (inversion unordered-chord 2)) (second-note (cadr (get-notes new-chord))))
     (and
-      (eq? (get-pitch-note second-note) #\B)
-      (= (get-octave-note second-note) 7)))
+      (eq? (get-pitch second-note) #\B)
+      (= (get-octave second-note) 7)))
   "Second order chord inversion not working for unordered chord")
-
-
-
