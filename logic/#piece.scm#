@@ -134,10 +134,7 @@
 
   (define (get-cent-notes-table x)
     (displaym "get cent notes table")
-    (display piece)
-    (display (get-pitch piece))
-    (cent-notes-table-get piece)
-  )
+    (cent-notes-table piece))
 
   (define (get-time x)
     (displaym "get-time")
@@ -150,6 +147,8 @@
       (hash-table/put! cent-notes-table (get-value note) note))
     (get-scale (get-key piece) major-tones))
 )
+
+(fill-cent-notes-table)
 
   (define get
     (make-generic-operator 1))
@@ -246,16 +245,10 @@
   ; (displaym "After" (get 'time))
   ; (set 'octave (get-octave key-sig))
   ; (time:update time)
-
-  (fill-cent-notes-table)
-
   method-dispatch
 )
 
 
 (define (convert-note note-str piece)
-  (let ((newnote (hash-table/get (piece 'get 'table) (get-value note-str) "null")))
-    (if (not (equal? newnote "null"))
-      newnote
-      note-str)))
+  (hash-table/get (piece 'get 'table) (get-value note-str) "null"))
   
