@@ -47,3 +47,54 @@
   (= (piece4 'get 'octave) 2)
   "Piece Octave Takes Input Value 2"
 )
+
+;Test key transposing stuff
+(define piece5 (new-piece 'Bb))
+(define piece5 (new-piece 'G##))
+
+(ptest
+  (= (get-key-value piece5) -200)
+  "Correct value of key")
+
+(ptest
+  (= (get-key-value (piece6 'get 'key)) -300)
+  "G## is correct!")
+
+(ptest
+  (equal? 
+    (get-pitch-list-from-key "Bb")
+    (list #\B #\C #\D #\E #\F #\G #\A))
+  "Correct list of pitches from B")
+
+
+(ptest
+  (equal? 
+    (get-pitch-list-from-key "G##")
+    (list #\G #\A #\B #\C #\D #\E #\F))
+  "Correct list of pitches from B")
+
+(ptest
+  (equal?
+    (get-scale "Bb" major-tones)
+    (list "Bb" "C" "D" "Eb" "F" "G" "A"))
+  "Bb major key works")
+
+(ptest
+  (equal?
+    (get-scale "D" major-tones)
+    (list "D" "E" "F#" "G" "A" "B" "C#"))
+  "D major key works")
+
+(ptest
+  (equal?
+    (get-scale "G" major-tones)
+    (list "G" "A" "B" "C" "D" "E" "F#"))
+  "G major key works")
+
+(ptest
+  (equal?
+    (get-scale "D" minor-tones)
+    (list "D" "E" "F" "G" "A" "Bb" "C"))
+  "D minor key works")
+
+
