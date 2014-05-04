@@ -30,29 +30,42 @@
 ; note operatiosn car-caddr -> get-pitch etc...
 ; 
 
-(define (new-piece #!optional key-sig time-sig)
+(define (key-name cell)
+  (let (
+        (pitch (string (eq-get cell 'pitch)))
+        (accent (car (eq-get cell 'accent)))
+        (num-accent (cadr (eq-get cell 'accent)))
+       )
+      ; (displaym "pitch" pitch)
+      ; (displaym "accent" accent)
+      ; (displaym "num-accent" num-accent)
+      (string pitch (make-string num-accent (string-ref accent 0)))
+  )
+)
+
+(define (time-name cell)
+  (string-append 
+    (number->string (eq-get cell 'numer-time))
+    "/"
+    (number->string (eq-get cell 'denom-time))))
+
+(define (new-piece #!optional pitch-str time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
-  (define-cell key)
-  (eq-put! key 'type 'key)
-  (eq-put! key 'data 'c)
+  (define-cell piece)
+  (eq-put! piece 'pitch #\C)
+  (eq-put! piece 'accent (list "b" 0))
+  (eq-put! piece 'octave 4)
+  (eq-put! piece 'numer-time 4)
+  (eq-put! piece 'denom-time 4)
+  (eq-put! piece 'measures '())
 
   ; key handle string, symbol
-  (define-cell time)
-  (eq-put! time 'type 'time)
-  (eq-put! time 'data "4/4")
   ; generic time 
   ; defaults to 4/4
   ; (define time "")
   ; (update-time time)
   ; should handle integer, string, symbol
-  (define-cell octave)
-  (eq-put! octave 'type 'octave)
-  (eq-put! octave 'data 4)
-
-  (define-cell measures) 
-  (eq-put! measures 'type 'measures)
-  (eq-put! measures 'data '())
   ; assume for now only one time sig
   ; change to tagged list later if multiple time sig
   ; '(
@@ -88,62 +101,96 @@
   (define (octave-type? data)
     ; numbers or symbols and strings
     ; that can become numbers
-    (or (symbol? data) (string? data) (number? data)))
+    valid-octave?)
   (define (measures-type? data)
     ; only lists of measures
-    (or (list? data)))
+    (list? data))
 
 
   (define no-op (lambda (label . args) 
     (displaym "No Generic Handler Found For" label args) ; debugging
     #f))
   ; generics
-  (define (get-data cell)
-    (eq-get cell 'data))
+  (define (get-key x)
+    (displaym "get-key")
+    (key-name piece)
+  )
+
+  (define (get-time x)
+    (displaym "get-time")
+    (time-name piece)
+  )
+
   (define get
     (make-generic-operator 1))
 
   (defhandler get 
-    (lambda(x) (get-data key)) key?)
+    get-key key?)
   (defhandler get 
-    (lambda(x) (get-data time)) time?)
+    get-time time?)
   (defhandler get 
-    (lambda(x) (get-data octave)) octave?)
+    (lambda(x) (eq-get piece x)) octave?)
   (defhandler get 
-    (lambda(x) (get-data measures)) measures?)
+    (lambda(x) (eq-get piece x)) measures?)
   (defhandler get 
     (lambda(x)
       (no-op "Get" x)) default-object?)
 
+  (define (set-data type value)
+    (displaym "set-data piece" piece)
+    (displaym "set-data type" type)
+    (displaym "set-data coerced" value)
+    (if (not (eqv? #f value))
+      (eq-put! piece 'data value)
+      (displaym "Invalid Value for " type value)))
 
-  (define (coerce type value)
-    value ; TODO -- this
+  (define (set-pitch-sym type pitch-str)
+    (set-pitch-str type (symbol->string pitch-str))
   )
-  (define (set-data cell type value)
-    (let  (
-            (coerced-val (coerce type value))
-          )
-          (displaym "set-data cell" cell)
-          (displaym "set-data type" type)
-          (displaym "set-data coerced" coerced-val)
-          (if (not (eqv? #f coerced-val))
-            (eq-put! cell 'data coerced-val)
-            (displaym "Invalid Value for " type value))))
-  
+
+  (define (set-pitch-str type pitch-str)
+    (if (valid-pitch? pitch-str)
+      (begin 
+        (eq-put! piece 'pitch (get-pitch pitch-str))
+        (eq-put! piece 'accent (get-accent pitch-str))
+        (if (equal? "" (get-octave pitch-str))
+          #f
+          (eq-put! piece 'octave (get-octave-num pitch-str))
+        )
+      )
+      (displaym "Invalid Pitch String" pitch-str)
+    )
+  )  
+
+  (define (set-time type time-str)
+    (if (valid-time? time-str)
+      (let*
+        (
+          (backslash-index (string-search-forward "/" time-str))
+          (numer (string->number (string-head time-str backslash-index)))
+          (denom (string->number (string-tail time-str (+ 1 backslash-index))))
+        )
+        (eq-put! piece 'numer-time numer)
+        (eq-put! piece 'denom-time denom)
+      )
+      (displaym "Invalid Time String" time-str)
+    )
+  )
+
   (define set
     (make-generic-operator 2))
   (defhandler set 
-    (lambda(type val) 
-      (set-data key type val)) key? key-type?)
+    set-pitch-str key? string?)
+  (defhandler set 
+    set-pitch-sym key? symbol?)
+  (defhandler set 
+    set-time time? string?)
   (defhandler set 
     (lambda(type val) 
-      (set-data time type val)) time? time-type?)
+      (set-data type val)) octave? octave-type?)
   (defhandler set 
     (lambda(type val) 
-      (set-data octave type val)) octave? octave-type?)
-  (defhandler set 
-    (lambda(type val) 
-      (set-data measures type val)) measures? measures-type?)
+      (set-data type val)) measures? measures-type?)
   (defhandler set 
     (lambda(type val)
       (no-op "Set" type val)) any? default-object?)
@@ -160,7 +207,7 @@
   )
 
 
-  (set 'key key-sig)
+  (set 'key pitch-str)
   ; (displaym "Before" (get 'time))
   (set 'time time-sig)
   ; (displaym "After" (get 'time))
