@@ -219,7 +219,6 @@
      (else
       (modify-accent pitch-char pitch-value mod-note-value "b" -100)))))
 
-;TODO
 
 (define note-values
 	(make-eq-hash-table))

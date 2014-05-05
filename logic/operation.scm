@@ -10,7 +10,7 @@
 
 (define transpose 
 	(make-generic-operator 2))
-(defhandler transpose ())
+
 
 
 (define transpose 
@@ -25,6 +25,7 @@
 ; (defhandler transpose
 ;   transpose-piece piece? integer?)
 
+;updates the octave and semitones for a given note
 (define (update-octave semitones octave)
 	(displaym "update-ocatave-semitones" semitones)
 	(displaym "update-octave-num" octave)
@@ -37,6 +38,7 @@
 	)
 )
 
+;Gets the note given a specfic note-value
 (define (get-note note-val)
 	(displaym "get-note-value" note-val)
 	(displaym "note-val" (integer? note-val))
@@ -47,19 +49,22 @@
 		((= note-val 600) (list #\F "#" 1))
 		((= note-val 800) (list #\G "#" 1))
 		((= note-val 900) (list #\G "#" 2))
-		(else (hash-table/get note-values note-val 0))
-		)
+		(else (list (hash-table/get note-values note-val 0) "#" 0)
+		))
 )
 
-;;Todo: Need to create the actual note. Update functions with side-cases work. 
+;Creates the correct pitch string given a notelist
+(define (create-pitch-string notelist)
+	(string (string (car notelist)) (cadr notelist) (number->string (caddr notelist)))
+	)
 
 (define (transpose-note note semitones)
 	(let (
 		(note-value (get-cent note))
 		(note-octave (eq-get note 'octave))
 		)
-		(displaym "note-value" note-value)
-		(displaym "note-octave" note-octave)
+		; (displaym "note-value" note-value)
+		; (displaym "note-octave" note-octave)
 		(let (
 			(values (update-octave semitones note-octave))
 			)
@@ -70,10 +75,28 @@
 		(let (
 			(transposed-note (get-note updated-values))
 			)
-		(displaym "values" values)
-		(displaym "updated-values" updated-values)
+		; (displaym "values" values)
+		; (displaym "updated-values" updated-values)
 		(displaym "new-note" transposed-note)
-		(displaym "new-octave" updated-octave) 
-		)))
+		(displaym "new-octave" updated-octave)
+		(displaym "new-note" (create-pitch-string transposed-note))
+		(create-note (create-pitch-string transposed-note) 4)
+		)
+		; (note-add transposed-note updated-octave)
+		))
 	)
 )
+
+
+; (define (transpose-chord chord semitones)
+; 	(let (
+; 		(old-chord (eq-get chord 'notes))
+; 		(new-chord '())
+; 		)
+; 	(for-each (lambda(note)
+; 		))
+; 		(chord-notes (eq-get chord 'notes))
+; 		)
+
+
+; 	)
