@@ -60,6 +60,13 @@
   )
 )
 
+;gets the cell note lookup table
+(define (cent-notes-table-get cell)
+  (display "HERE")
+  (eq-get
+    cell
+    'cent-notes-table))
+
 ; define time-name
 (define (time-name cell)
   (string-append 

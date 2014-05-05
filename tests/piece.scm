@@ -50,14 +50,14 @@
 
 ;Test key transposing stuff
 (define piece5 (new-piece 'Bb))
-(define piece5 (new-piece 'G##))
+(define piece6 (new-piece 'G##))
 
 (ptest
-  (= (get-key-value piece5) -200)
+  (= (get-value (piece5 'get 'key)) -200)
   "Correct value of key")
 
 (ptest
-  (= (get-key-value (piece6 'get 'key)) -300)
+  (= (get-value (piece6 'get 'key)) -300)
   "G## is correct!")
 
 (ptest
@@ -96,5 +96,18 @@
     (get-scale "D" minor-tones)
     (list "D" "E" "F" "G" "A" "Bb" "C"))
   "D minor key works")
+
+(ptest
+  (equal?
+    (convert-note "D#" piece5)
+    "Eb")
+  "Converts D# to Eb in Bb key")
+
+
+(ptest
+  (equal?
+    (convert-note "F#" piece5)
+    "F#")
+  "Leaves F# alone in Bb key")
 
 
