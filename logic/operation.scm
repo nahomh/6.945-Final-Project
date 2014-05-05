@@ -36,7 +36,7 @@
 ; 		(note-octave (eq-get note 'octave))
 ; 		(vals (update-octave semitones note-octave))	;(2 1)
 ; 		)
-
+	
 	
 
 
