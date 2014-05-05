@@ -25,6 +25,35 @@
 ; note data structure -> '(note a# 5 0.25)
 ; note operatiosn car-caddr -> get-pitch etc...
 ; 
+(define (get-last-elem lst)
+  (list-ref lst (- (length lst) 1)))
+
+
+(define (get-pitch-list-from-key key)
+  (define (add-to-list lst)
+    (if (= (length lst) 7)
+      lst
+      (add-to-list (append lst (list (get-next-pitch (get-last-elem lst)))))))
+  (add-to-list (list (get-pitch key))))
+
+
+(define (get-key-value key)
+  (let 
+    ((pitch-value (attach-semitone (get-pitch key)))
+    (accent-value (get-accent-count (get-accent key))))
+      (modded-val (+ pitch-value accent-value))))
+
+(define (adjust-accents lst newlst note-value tones)
+  (if (not (pair? lst))
+    newlst
+    (adjust-accents 
+      (cdr lst) 
+      (append newlst (list (add-accent (car lst) note-value))) 
+      (modded-val (+ note-value (car tones)))
+      (cdr tones))))
+
+(define (get-scale key tones)
+  (adjust-accents (get-pitch-list-from-key key) `() (get-key-value key) tones))
 
 
 (define (new-piece #!optional pitch-str time-sig)
