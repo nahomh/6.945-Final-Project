@@ -26,29 +26,13 @@
 ; note operatiosn car-caddr -> get-pitch etc...
 ; 
 
-(define (key-name cell)
-  (let (
-        (pitch (string (eq-get cell 'pitch)))
-        (accent (car (eq-get cell 'accent)))
-        (num-accent (cadr (eq-get cell 'accent)))
-       )
-      ; (displaym "pitch" pitch)
-      ; (displaym "accent" accent)
-      ; (displaym "num-accent" num-accent)
-      (string pitch (make-string num-accent (string-ref accent 0)))
-  )
-)
-
-(define (time-name cell)
-  (string-append 
-    (number->string (eq-get cell 'numer-time))
-    "/"
-    (number->string (eq-get cell 'denom-time))))
 
 (define (new-piece #!optional pitch-str time-sig)
   ; creates a new piece in the key of "key" with 
   ; the time signature given by "time"
+  (run)
   (define-cell piece)
+  (eq-put! piece 'type 'piece)
   (eq-put! piece 'pitch #\C)
   (eq-put! piece 'accent (list "b" 0))
   (eq-put! piece 'octave 4)

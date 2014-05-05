@@ -32,7 +32,7 @@
   (define-cell note)
   (eq-put! note 'type 'note)
   (eq-put! note 'pitch #\C)
-  (eq-put! note 'duration 0.25)
+  (eq-put! note 'duration (make-duration 0.25))
   (eq-put! note 'octave 4)
   (eq-put! note 'accent (list "b" 0)))
 
@@ -41,7 +41,7 @@
     "Not a valid pitch expression"
     (let ((new-note (empty-note)))
       (eq-put! new-note 'pitch (get-pitch pitch-string))
-      (eq-put! new-note 'duration duration)
+      (eq-put! new-note 'duration (make-duration duration))
       (eq-put! new-note 'accent (get-accent pitch-string))
       (eq-put! new-note 'octave (get-octave pitch-string))
       new-note)))
@@ -113,13 +113,13 @@
 
 
 (define (attach-semitone pitch)
-	(cond 
-	((char=? pitch #\C) C4)
-	((char=? pitch #\B) (- C4 semitone))
-	((char=? pitch #\D) (+ C4 (* 2 semitone)))
-	((char=? pitch #\F) (+ C4 (* 5 semitone)))
+  (cond 
 	((char=? pitch #\A) (- C4 (* 3 semitone)))
+  ((char=? pitch #\B) (- C4 semitone))
+  ((char=? pitch #\C) C4)
+  ((char=? pitch #\D) (+ C4 (* 2 semitone)))
 	((char=? pitch #\E) (+ C4 (* 4 semitone)))
+  ((char=? pitch #\F) (+ C4 (* 5 semitone)))
 	((char=? pitch #\G) (+ C4 (* 7 semitone)))))
 
 (define (get-cent note)

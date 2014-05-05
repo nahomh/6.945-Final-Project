@@ -23,6 +23,16 @@
     (eq? 'note (eq-get note 'type))
     #f))
 
+(define (measure? cell)
+  (if (cell? cell)
+    (eq? 'measure (eq-get cell 'type))
+    #f))
+
+(define (chord? cell)
+  (if (cell? cell)
+    (eq? 'chord (eq-get cell 'type))
+    #f))
+
 (define (valid-notes? notes)
   (define (iterator note-list)
     (if (pair? note-list)

@@ -21,15 +21,15 @@
   )
 )
 (print-test-suites 
+  my-test-suite
+  my-test-suite2
   chord-test-suite
   interval-test-suite
   measures-test-suite
-  my-test-suite
-  my-test-suite2
   note-test-suite
   piece-test-suite
   pitch-ops-test-suite
   valid-pitch-test-suite
   valid-octave-test-suite
   valid-time-test-suite
-  )
+)

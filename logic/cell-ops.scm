@@ -33,4 +33,41 @@
 
 (defhandler get-duration 
   (lambda(cell)
-    (eq-get cell 'duration)) cell?)
+    (let (
+          (duration-val (eq-get cell 'duration))
+         )
+        ; (displaym "empty-duration" (empty-duration))
+        ; (displaym "make-duration" (make-duration 0))
+        ; (displaym "duration-val" duration-val)
+        (if (cell? duration-val)
+          (inquire duration-val)
+          duration-val
+        )
+    )) cell?)
+
+
+; get the key name
+(define (key-name cell)
+  (let (
+        (pitch (string (eq-get cell 'pitch)))
+        (accent (car (eq-get cell 'accent)))
+        (num-accent (cadr (eq-get cell 'accent)))
+       )
+      ; (displaym "pitch" pitch)
+      ; (displaym "accent" accent)
+      ; (displaym "num-accent" num-accent)
+      (string pitch (make-string num-accent (string-ref accent 0)))
+  )
+)
+
+; define time-name
+(define (time-name cell)
+  (string-append 
+    (number->string (eq-get cell 'numer-time))
+    "/"
+    (number->string (eq-get cell 'denom-time))))
+
+; get notes
+(define (get-notes cell)
+  (eq-get cell 'notes)
+)
