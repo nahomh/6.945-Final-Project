@@ -13,29 +13,29 @@
 ;(defhandler transpose ())
 
 
-(define transpose 
-	(make-generic-operator 2))
-
-(defhandler transpose
-  transpose-note note? integer?)
+; (define transpose 
+; 	(make-generic-operator 2))
 
 ; (defhandler transpose
-;   transpose-chord chord? integer?)
+;   transpose-note note? integer?)
 
-; (defhandler transpose
-;   transpose-piece piece? integer?)
+; ; (defhandler transpose
+; ;   transpose-chord chord? integer?)
 
-(define (update-octave semitones octave)
-	(displaym "update-ocatave-semitones" semitones)
-	(displaym "update-octave-num" octave)
-	(let (
-		(semitones-count (modulo semitones 12))
-		(octave-count (quotient semitones 12))
-		)
-	(if (> semitones 12) (list semitones-count octave-count) 
-		(list semitones))
-	)
-)
+; ; (defhandler transpose
+; ;   transpose-piece piece? integer?)
+
+; (define (update-octave semitones octave)
+; 	(displaym "update-ocatave-semitones" semitones)
+; 	(displaym "update-octave-num" octave)
+; 	(let (
+; 		(semitones-count (modulo semitones 12))
+; 		(octave-count (quotient semitones 12))
+; 		)
+; 	(if (> semitones 12) (list semitones-count octave-count) 
+; 		(list semitones))
+; 	)
+; )
 
 
 
