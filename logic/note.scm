@@ -216,3 +216,18 @@
       (modify-accent pitch-char pitch-value mod-note-value "b" -100)))))
 
 ;TODO
+
+(define note-values
+	(make-eq-hash-table))
+
+(define (set-note-values)
+	(hash-table/put! note-values -300 #\A)
+	(hash-table/put! note-values -100 #\B)
+	(hash-table/put! note-values  0 #\C)
+	(hash-table/put! note-values 200 #\D)
+	(hash-table/put! note-values 400 #\E)
+	(hash-table/put! note-values 500 #\F)
+	(hash-table/put! note-values 700 #\G)
+	)
+
+(set-note-values)
