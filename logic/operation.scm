@@ -30,13 +30,14 @@
 		(semitones)))
 
 
-(define (transpose-note note semitones)
-	(let (
-		(note-value (get-cent note))
-		(note-octave (eq-get note 'octave))
-		(vals (update-octave semitones note-octave))	;(2 1)
-		)
+; (define (transpose-note note semitones)
+; 	(let (
+; 		(note-value (get-cent note))
+; 		(note-octave (eq-get note 'octave))
+; 		(vals (update-octave semitones note-octave))	;(2 1)
+; 		)
+
 	
 
 
-		)
+; 		)
