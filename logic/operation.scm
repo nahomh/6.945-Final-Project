@@ -39,30 +39,30 @@
 
 
 
-; (define (transpose-note note semitones)
-; 	(let (
-; 		(note-value (get-cent note))
-; 		(note-octave (eq-get note 'octave))
-; 		)
-; 		(displaym "note-value" note-value)
-; 		(displaym "note-octave" note-octave)
-; 		(displaym "update-octave-function" values)
-; 		(let (
-; 			(values (update-octave semitones note-octave))
-; 			(updated-values (+ note-value (car values)))
-; 			)
+(define (transpose-note note semitones)
+	(let (
+		(note-value (get-cent note))
+		(note-octave (eq-get note 'octave))
+		)
+		(displaym "note-value" note-value)
+		(displaym "note-octave" note-octave)
+		(displaym "update-octave-function" values)
+		(let (
+			(values (update-octave semitones note-octave))
+			(updated-values (+ note-value (car values)))
+			)
 
-; 		(displaym "values" values)
-; 		(displaym "updated-values" updated-values)
-; 		)
+		(displaym "values" values)
+		(displaym "updated-values" updated-values)
+		)
 
-; 		; (let(
-; 		; 	(vals (update-octave semitones note-octave))
-; 		; 	(update-note (+ note-value (car (vals))));(2 1)
-; 		; 	)
-; 		; (displaym "Updated value:" update-note)
-; 		; )
+		; (let(
+		; 	(vals (update-octave semitones note-octave))
+		; 	(update-note (+ note-value (car (vals))));(2 1)
+		; 	)
+		; (displaym "Updated value:" update-note)
+		; )
 		
 
-; 	)
-; )
+	)
+)
