@@ -4,6 +4,7 @@
 Final Project for Large-Scale Symbolic Systems by Malcom Gilbert, Dhruv Parthasarathy, and Nahom Workie. A symbolic representation for musical notes and chords.
 Project Document and Specfications can be found here: https://docs.google.com/document/d/1tUrCgEPbMuahAHn_t-CyMxyA4BqNBTeS8MlHvrhzIMI/
 
+Final Presentation: https://docs.google.com/presentation/d/1aGjcMCQgu2u_5cZ0YCsZ6Qk8o7H166cdQieTpalF1zQ/
 
 
 To-Do
