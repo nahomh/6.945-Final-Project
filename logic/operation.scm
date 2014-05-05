@@ -19,8 +19,8 @@
 (defhandler transpose
   transpose-note note? integer?)
 
-; (defhandler transpose
-;   transpose-chord chord? integer?)
+(defhandler transpose
+  transpose-chord chord? integer?)
 
 ; (defhandler transpose
 ;   transpose-piece piece? integer?)
@@ -81,9 +81,7 @@
 		(displaym "new-octave" updated-octave)
 		(displaym "new-note" (create-pitch-string transposed-note))
 		(create-note (create-pitch-string transposed-note) 4)
-		)
-		; (note-add transposed-note updated-octave)
-		))
+		)))
 	)
 )
 
@@ -91,12 +89,10 @@
 ; (define (transpose-chord chord semitones)
 ; 	(let (
 ; 		(old-chord (eq-get chord 'notes))
-; 		(new-chord '())
 ; 		)
-; 	(for-each (lambda(note)
+; 	(for-each (lambda (note)
 ; 		))
-; 		(chord-notes (eq-get chord 'notes))
-; 		)
 
-
+; 	(displaym "result:" (map transpose-note old-chord))
 ; 	)
+; )
