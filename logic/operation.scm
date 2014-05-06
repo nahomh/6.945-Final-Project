@@ -68,7 +68,7 @@
 			)
 		; (displaym "new-note" transposed-note)
 		; (displaym "new-octave" updated-octave)
-		; (displaym "new-note" (create-pitch-string transposed-note))
+		(displaym "new-note" (create-pitch-string transposed-note))
 		(create-note (create-pitch-string transposed-note) 4)
 		)))
 	)

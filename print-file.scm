@@ -48,3 +48,29 @@ note
 ("b" 2)
 
 
+(transpose-note (create-note "A2" 2) 34)
+new-note: G#0
+;Value: #[entity 86]
+
+
+(print-chord 
+	(transpose-chord 
+		(create-chord 
+			(create-note "E5" 2) 
+			(create-note "F5" 2) 
+			(create-note "G5" 2)) 
+		34))
+
+#\D
+0
+("#" 1)
+note
+#\D
+1
+("#" 1)
+note
+#\F
+0
+("#" 1)
+;Unspecified return value
+
