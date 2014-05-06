@@ -63,8 +63,6 @@
 		(note-value (get-cent note))
 		(note-octave (eq-get note 'octave))
 		)
-		; (displaym "note-value" note-value)
-		; (displaym "note-octave" note-octave)
 		(let (
 			(values (update-octave semitones note-octave))
 			)
@@ -75,24 +73,21 @@
 		(let (
 			(transposed-note (get-note updated-values))
 			)
-		; (displaym "values" values)
-		; (displaym "updated-values" updated-values)
-		(displaym "new-note" transposed-note)
-		(displaym "new-octave" updated-octave)
-		(displaym "new-note" (create-pitch-string transposed-note))
+		; (displaym "new-note" transposed-note)
+		; (displaym "new-octave" updated-octave)
+		; (displaym "new-note" (create-pitch-string transposed-note))
 		(create-note (create-pitch-string transposed-note) 4)
 		)))
 	)
 )
 
 
-; (define (transpose-chord chord semitones)
-; 	(let (
-; 		(old-chord (eq-get chord 'notes))
-; 		)
-; 	(for-each (lambda (note)
-; 		))
-
-; 	(displaym "result:" (map transpose-note old-chord))
-; 	)
-; )
+(define (transpose-chord chord semitones)
+	(let (
+		(note-list (eq-get chord 'notes))
+		)
+	(apply create-chord (map (lambda (note)
+		(transpose-note note semitones))
+		note-list))
+	)
+)
