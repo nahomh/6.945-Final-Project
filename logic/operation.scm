@@ -11,24 +11,17 @@
 (define transpose 
 	(make-generic-operator 2))
 
-
-
 (define transpose 
 	(make-generic-operator 2))
 
-(defhandler transpose
-  transpose-note note? integer?)
-
-(defhandler transpose
-  transpose-chord chord? integer?)
 
 ; (defhandler transpose
 ;   transpose-piece piece? integer?)
 
 ;updates the octave and semitones for a given note
 (define (update-octave semitones octave)
-	(displaym "update-ocatave-semitones" semitones)
-	(displaym "update-octave-num" octave)
+	; (displaym "update-ocatave-semitones" semitones)
+	; (displaym "update-octave-num" octave)
 	(let (
 		(semitones-count (modulo semitones 12))
 		(octave-count (quotient semitones 12))
@@ -40,9 +33,9 @@
 
 ;Gets the note given a specfic note-value
 (define (get-note note-val)
-	(displaym "get-note-value" note-val)
-	(displaym "note-val" (integer? note-val))
-	(displaym "hash-table-val" (hash-table/get note-values note-val 0))
+	; (displaym "get-note-value" note-val)
+	; (displaym "note-val" (integer? note-val))
+	; (displaym "hash-table-val" (hash-table/get note-values note-val 0))
 	(cond
 		((= note-val -200) (list #\A "#" 1))
 		((= note-val 300) (list #\D "#" 1))
@@ -100,3 +93,8 @@
 
 ; (print-chord (transpose-chord (create-chord (create-note "E5" 2) (create-note "F5" 2) (create-note "G5" 2)) 34))
 
+(defhandler transpose
+  transpose-note note? integer?)
+
+(defhandler transpose
+  transpose-chord chord? integer?)
