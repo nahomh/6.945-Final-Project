@@ -123,7 +123,27 @@ note
   (create-note "Bbb#b10" 0.5)
   (create-note "G#5" 0.5)
   (create-note "Fbb3" 0.5))
+ 1))
+
+"A#4"
+"G#5"
+"Bbb10"
+"Fbb10"
+
+(show-chord (inversion 
+ (create-chord
+  (create-note "A#4" 0.5)
+  (create-note "Bbb#b10" 0.5)
+  (create-note "G#5" 0.5)
+  (create-note "Fbb3" 0.5))
  2))
+
+"A#11"
+"G#5"
+"Bbb10"
+"Fbb10"
+
+
 
 (show-chord 
   (transpose-chord 
