@@ -7,9 +7,6 @@
   (eq-put! measure 'notes '()))
 
 (define (prop-notes notes master-cell)
-  (displaym "notes" notes)
-  (for-each (lambda (note) (displaym "note" (get-pitch note))) notes)
-  (define minus (car (reverse notes)))
   (if (= (length notes) 1)
     (c:id (eq-get (car notes) 'duration) master-cell)
   
@@ -22,17 +19,9 @@
         0 notes)
     master-cell)
   )
-  (displaym "master" master-cell)
   (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
-  (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
-  (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
-  ; master-cell
 )
 
-(define (try-duration measure)
-  (lambda() 
-    (set-duration measure)
-))
 
 (define (set-duration measure)
   (let (
