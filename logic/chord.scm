@@ -38,6 +38,12 @@
      (print-note note))
    (eq-get chord 'notes)))
 
+(define (show-chord chord)
+  (for-each
+   (lambda (note)
+     (show-note note))
+   (eq-get chord 'notes)))
+
 (define (inversion chord order)
   (let* ((new-chord (empty-chord)) (notes (sort-notes (eq-get chord 'notes))) (last-note (list-ref notes (- (length notes) 1))))
     (eq-put! 

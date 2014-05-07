@@ -1,3 +1,5 @@
+(load "load")
+
 (print-chord (inversion 
  (create-chord
   (create-note "A#4" 0.5)
@@ -114,4 +116,20 @@ note
 0
 ("#" 1)
 ;Unspecified return value
+
+(show-chord (inversion 
+ (create-chord
+  (create-note "A#4" 0.5)
+  (create-note "Bbb#b10" 0.5)
+  (create-note "G#5" 0.5)
+  (create-note "Fbb3" 0.5))
+ 2))
+
+(show-chord 
+  (transpose-chord 
+    (create-chord 
+      (create-note "E5" 2) 
+      (create-note "F5" 2) 
+      (create-note "G5" 2)) 
+    34))
 
