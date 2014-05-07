@@ -9,6 +9,7 @@
 (define (prop-notes notes master-cell)
   (displaym "notes" notes)
   (for-each (lambda (note) (displaym "note" (get-pitch note))) notes)
+  (define minus (car (reverse notes)))
   (if (= (length notes) 1)
     (c:id (eq-get (car notes) 'duration) master-cell)
   
@@ -30,9 +31,16 @@
     master-cell)
   )
   (displaym "master" master-cell)
-  (displaym "master-val" (inquire master-cell))
-  master-cell
+  (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
+  (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
+  (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
+  ; master-cell
 )
+
+(define (try-duration measure)
+  (lambda() 
+    (set-duration measure)
+))
 
 (define (set-duration measure)
   (let (
@@ -71,3 +79,23 @@
        (set-duration measure-copy)
   )
 )
+
+
+(define (restart-prob-error thunk)
+  (bind-condition-handler (list condition-type:error)
+    (lambda (condition)
+      (display condition)
+      (newline)
+      (newline)
+      (pp condition)
+      (invoke-restart (find-restart 'measure-propagation) 1 2))
+    thunk))
+
+(define (handle-measure-propagation thunk)
+  (lambda ()
+    (call-with-current-continuation
+      (lambda (kappa)
+        (with-restart 'measure-propagation "Malcom Measure Propagation"
+        (lambda (a b)
+          (kappa (make-duration .25)))
+        values thunk)))))

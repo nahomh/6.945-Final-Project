@@ -29,7 +29,7 @@
       (two-note-measure (add-note-to-measure one-note-measure note2))
       (three-note-measure (add-note-to-measure two-note-measure note3))
       (four-note-measure (add-note-to-measure three-note-measure note5))
-      ; (four1-note-measure (add-note-to-measure three-note-measure note4))
+      (four1-note-measure (add-note-to-measure three-note-measure note4))
       )
   
   ; testing adding notes
@@ -73,7 +73,7 @@
   (displaym "2note" (get-duration two-note-measure))
   (displaym "3note" (get-duration three-note-measure))
   (displaym "4note" (get-duration four-note-measure))
-  ; (displaym "4note1" (get-duration four1-note-measure))
+  (displaym "4note1"(get-duration four1-note-measure))
 )
 
 ; (mtest
