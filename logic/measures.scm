@@ -16,14 +16,6 @@
     (c:id
       (reduce 
         (lambda (index previous)
-          ; (displaym "index" (inquire index))
-          ; (displaym "get-duration" (eq-get index 'duration))
-          ; (displaym "previous" (inquire previous))
-          ; (displaym "previous-p" (get-pitch previous))
-          ; (displaym "previous-t" (eq-get previous 'type))
-          ; (displaym "previous-i" (inquire previous))
-          ; (displaym "get-duration" (eq-get previous 'duration))
-
           (if (eq? #f (get-duration previous)) 
               (ce:+ (eq-get index 'duration) previous)
               (ce:+ (eq-get index 'duration) (eq-get previous 'duration))))
