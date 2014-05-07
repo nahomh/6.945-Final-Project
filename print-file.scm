@@ -89,9 +89,15 @@ Value: "F#"
 
 
 
-(transpose-note (create-note "A2" 2) 34)
-new-note: G#0
+
+(transpose-note (create-note "E#2" 2) 34)
+new-note: D#4
 ;Value: #[entity 86]
+
+
+(transpose-note (create-note "A2" 2) 34)
+new-note: G4
+;Value: #[entity 87]
 
 
 (print-chord 
@@ -103,15 +109,15 @@ new-note: G#0
 		34))
 
 #\D
-0
-("#" 1)
+7
+("#" 0)
 note
 #\D
-1
+7
 ("#" 1)
 note
 #\F
-0
-("#" 1)
+7
+("#" 0)
 ;Unspecified return value
 

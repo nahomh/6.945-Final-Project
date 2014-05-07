@@ -37,18 +37,18 @@
 	; (displaym "note-val" (integer? note-val))
 	; (displaym "hash-table-val" (hash-table/get note-values note-val 0))
 	(cond
-		((= note-val -200) (list #\A "#" 1))
-		((= note-val 300) (list #\D "#" 1))
-		((= note-val 600) (list #\F "#" 1))
-		((= note-val 800) (list #\G "#" 1))
-		((= note-val 900) (list #\G "#" 2))
-		(else (list (hash-table/get note-values note-val 0) "#" 0)
+		((= note-val -200) (list #\A #\# 1))
+		((= note-val 300) (list #\D #\# 1))
+		((= note-val 600) (list #\F #\# 1))
+		((= note-val 800) (list #\G #\# 1))
+		((= note-val 900) (list #\G #\# 2))
+		(else (list (hash-table/get note-values note-val 0) #\# 0)
 		))
 )
 
 ;Creates the correct pitch string given a notelist
 (define (create-pitch-string notelist)
-	(string (string (car notelist)) (cadr notelist) (number->string (caddr notelist)))
+	(string (string (car notelist)) (make-string (caddr notelist) (cadr notelist)))
 	)
 
 (define (transpose-note note semitones)
@@ -66,24 +66,26 @@
 		(let (
 			(transposed-note (get-note updated-values))
 			)
-		; (displaym "new-note" transposed-note)
-		; (displaym "new-octave" updated-octave)
-		(displaym "new-note" (create-pitch-string transposed-note))
-		(create-note (create-pitch-string transposed-note) 4)
+		(displaym "new-note" transposed-note)
+		(displaym "sharp" (cadr transposed-note))
+		(displaym "ocatave" (caddr transposed-note))
+		(displaym "new-octave" updated-octave)
+		(displaym "new-note" (string (create-pitch-string transposed-note) (string updated-octave)))
+		(create-note (string (create-pitch-string transposed-note) (string updated-octave))) 4)
 		)))
 	)
 )
 
 
-(define (transpose-chord chord semitones)
-	(let (
-		(note-list (eq-get chord 'notes))
-		)
-	(apply create-chord (map (lambda (note)
-		(transpose-note note semitones))
-		note-list))
-	)
-)
+; (define (transpose-chord chord semitones)
+; 	(let (
+; 		(note-list (eq-get chord 'notes))
+; 		)
+; 	(apply create-chord (map (lambda (note)
+; 		(transpose-note note semitones))
+; 		note-list))
+; 	)
+; )
 
 ; Tests
 ; (transpose-chord (create-chord (create-note "E5" 2) (create-note "F5" 2) (create-note "G5" 2)) 34)
