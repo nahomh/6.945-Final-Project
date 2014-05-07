@@ -7,6 +7,7 @@
 (load "tests/measures")
 (load "tests/note-ops")
 (load "tests/note")
+(load "tests/operations")
 (load "tests/piece")
 (load "tests/pitch-ops")
 (load "tests/validation")
@@ -28,6 +29,7 @@
   interval-test-suite
   measures-test-suite
   note-test-suite
+  operations-test-suite
   piece-test-suite
   pitch-ops-test-suite
   valid-pitch-test-suite
