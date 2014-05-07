@@ -107,6 +107,9 @@
   (pp (eq-get note 'octave))
   (pp (eq-get note 'accent)))
 
+(define (show-note note)
+  (pp (pitch-str note)))
+
 (defhandler note-add
   (lambda (note octave)
     (let ((current-octave (eq-get note 'octave)) (new-note (empty-note)))
