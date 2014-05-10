@@ -50,15 +50,23 @@
 
 (vttest
   (not (valid-time? "432r"))
-  "432r is valid time signature")
+  "432r is not a valid time signature")
 
 (vttest
   (not (valid-time? "4.3/44"))
-  "4.3/44 is valid time signature")
+  "4.3/44 is not a valid time signature")
 
 (vttest
   (not (valid-time? "4/4.4"))
-  "4/4.4 is valid time signature")
+  "4/4.4 is not a valid time signature")
+
+(vttest
+  (not (valid-time? "0/4"))
+  "0/4 is valid time signature")
+
+(vttest
+  (not (valid-time? "4/0"))
+  "4/0 is valid time signature")
 
 ; valid octave tests
 (define valid-octave-test-suite (test-suite-wrapper "Valid Octave Suite"))

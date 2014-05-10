@@ -77,20 +77,20 @@
 )
 
 
-; (define (transpose-chord chord semitones)
-; 	(let (
-; 		(note-list (eq-get chord 'notes))
-; 		)
-; 	(apply create-chord (map (lambda (note)
-; 		(transpose-note note semitones))
-; 		note-list))
-; 	)
-; )
+(define (transpose-chord chord semitones)
+	(let (
+		(note-list (eq-get chord 'notes))
+		)
+	(apply create-chord (map (lambda (note)
+		(transpose-note note semitones))
+		note-list))
+	)
+)
 
 ; Tests
-; (transpose-chord (create-chord (create-note "E5" 2) (create-note "F5" 2) (create-note "G5" 2)) 34)
-;
-;(transpose-note (create-note "A2" 2) 34)
+(transpose-chord (create-chord (create-note "E5" 2) (create-note "F5" 2) (create-note "G5" 2)) 34)
+
+(transpose-note (create-note "A2" 2) 34)
 
 
 ; (print-chord (transpose-chord (create-chord (create-note "E5" 2) (create-note "F5" 2) (create-note "G5" 2)) 34))

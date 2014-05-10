@@ -16,7 +16,7 @@
 
 (define (rexp-one-or-more-numbers) 
   (rexp+ 
-    (rexp-alternatives "0" "1" "2" "3" "4" "5" "6" "7" "8" "9")))
+    (rexp-alternatives "1" "2" "3" "4" "5" "6" "7" "8" "9")))
 
 (define (rexp-time)
   (rexp-sequence
