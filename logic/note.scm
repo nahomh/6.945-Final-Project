@@ -72,8 +72,8 @@
   (eq-put! note 'octave 0)
   (eq-put! note 'accent (list "b" 0)))
 
-(define (modify-duration note duration)
-  (eq-put note 'duration duration))
+(define (modify-duration! note duration)
+  (eq-put! note 'duration duration))
 
 
 (define (rest)
