@@ -20,6 +20,7 @@
     master-cell)
   )
   (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
+  (restart-prob-error (handle-measure-propagation (lambda ()(inquire master-cell))))
 )
 
 
