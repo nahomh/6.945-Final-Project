@@ -93,6 +93,7 @@
   (displaym "over13" (length overlap13-measures))
   (displaym "over13reg" overlap13-measures)
   (displaym "4note" (map (lambda (note) (pitch-str note)) (get-notes four-note-measure)))
+  (displaym "over" (map (lambda (note) (pitch-str note)) (get-notes (car overlap13-measures))))
 
   ; (displaym "1note" (get-duration one-note-measure))
   ; (displaym "2note" (get-duration two-note-measure))
@@ -127,29 +128,4 @@
       (get-duration (car overlap13-measures))
       (cell-max-duration (car overlap13-measures)))
     "First measure is at maximal duration")
-  ; (mtest
-  ;   (list? four1-note-measure)
-  ;   "Should return a list when note doesn't fit")
-  ; (mtest
-  ;   (list? four1-note-measure)
-  ;   "Should return a list when note doesn't fit")
-  ; (mtest
-  ;   (list? four1-note-measure)
-  ;   "Should return a list when note doesn't fit")
-  ; (mtest
-  ;   (list? four1-note-measure)
-  ;   "Should return a list when note doesn't fit")
-  ; (mtest
-  ;   (list? four1-note-measure)
-  ;   "Should return a list when note doesn't fit")
 )
-
-; (mtest
-;   (= (string-count "a###" "#") 3)
-;   "3 #'s in a###")
-; (mtest
-;   (= (string-count "a" "#") 0)
-;   "0 #'s in a")
-; (mtest
-;   (= (string-count "" "#") 0)
-;   "0 for null string")
