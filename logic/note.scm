@@ -67,9 +67,9 @@
 (define (empty-note)
   (define-cell note)
   (eq-put! note 'type 'note)
-  (eq-put! note 'pitch #\ )
+  (eq-put! note 'pitch #\C )
   (eq-put! note 'duration (make-duration 0.25))
-  (eq-put! note 'octave 0)
+  (eq-put! note 'octave 4)
   (eq-put! note 'accent (list "b" 0)))
 
 (define (modify-duration! note duration)
