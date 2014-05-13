@@ -31,6 +31,8 @@
   (no-parallel l 1200))
 (define (no-parallel-fifths l)
   (no-parallel l 700))
+(define (no-parallel-unisons l)
+  (no-parallel l 0))
 
 (define amb-notes
   (lambda()
