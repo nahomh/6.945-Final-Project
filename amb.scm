@@ -88,14 +88,15 @@
     (amb "c5" "c6" "c4" "e3")))
 
 (define (gen-notes num l)
-  (let 
+  (let*
     (
-      (note1 (amb-notes))
-      (note2 (amb-notes))
+      (note-list (iota num))
+      (note-amb (map 
+        (lambda(note) (amb-notes)) note-list))
     )
-    (require (distinct (list note1 note2)))
-    (require (no-parallel-octaves (list note1 note2)))
-    (list (list 'note1 note1) (list 'note2 note2))
+    (require (distinct note-amb))
+    (require (no-parallel-octaves note-amb))
+    note-amb
   )
 )
 
