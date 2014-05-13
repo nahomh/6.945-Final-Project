@@ -3,24 +3,6 @@
 (load "load-amb")
 (init)
 
-; (define (displaym label . things) 
-;   (define should-display #t)
-;   (define (internal)
-;     (newline)
-;     (display (string label ": "))
-;     (if (> (length things) 1)
-;       (for-each (lambda (thing)
-;         (newline)
-;         (display "    ")
-;         (display thing)
-;         )
-;         things
-;       )
-;       (if (not (null? things)) (display (car things)))
-;     )
-;   )
-;   (if should-display (internal) (display ""))
-; )
 (define (require p)
   (if (not p) (amb)))
 
@@ -31,41 +13,52 @@
   (else (distinct (cdr l)))))
 
 
-(define (parallel-octave? note1 note2)
-  (display "val: ")
-  (display note1)
-  (newline)
-  (display "get-cent: ")
-  (display (get-cent (create-note note1 .25)))
-  (newline)
-  (display "get-cent: ")
-  (display (get-cent (create-note note2 .25)))
-  (newline)
-  (newline)
-
+(define (parallel-note? note1 note2 cent-val)
   (= (abs (- 
     (get-cent (create-note note1 .25))
     (get-cent (create-note note2 .25)))) 
-  1200))
+  cent-val))
 
-(define (no-parallel-octaves l)
-  (display "parallel")
+
+(define (no-parallel l cent-val)
+  ; (display "parallel")
   (cond ((null? l) true)
   ((null? (cdr l)) true)
-  ((parallel-octave? (car l) (cadr l)) false)
-  (else (no-parallel-octaves (cdr l)))))
+  ((parallel-note? (car l) (cadr l) cent-val) false)
+  (else (no-parallel (cdr l) cent-val))))
+
+(define (no-parallel-octaves l)
+  (no-parallel l 1200))
+(define (no-parallel-fifths l)
+  (no-parallel l 700))
 
 (define amb-notes
   (lambda()
+    ; hack around fact that you can't
+    ; call apply amb list....
+    ; also only diatonic in alto range atm
     (amb "c5" "c6" "c4" "e3")))
 
 (define (amb-note-list l)
-  (display "anl: ")
-  (display l)
-  (newline)
+  ; (display "anl: ")
+  ; (display l)
+  ; (newline)
   (if (null? l)
     '()
     (append (list (amb-notes)) (amb-note-list (cdr l)))
+  )
+)
+
+(define (amb-dispatch l)
+  (let ((sym (car l)))
+    (cond 
+          ((eq? 'no-parallel-octaves sym) 
+            (require (no-parallel-octaves note-amb)))
+          (else #f)
+    )
+    (if (null? (cdr l))
+      #f (amb-dispatch (cdr l))
+    )
   )
 )
 
@@ -80,6 +73,7 @@
     (display note-amb)
     (newline)
     ; (require (distinct note-amb))
+    (amb-dispatch l)
     (require (no-parallel-octaves note-amb))
     note-amb
   ))
