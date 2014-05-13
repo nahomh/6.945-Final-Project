@@ -5,7 +5,7 @@
 (load-option 'regular-expression)
 (load "ghelper.scm")
 (load "generics.scm")
-(load "amb.scm")
+; (load "amb.scm")
 (load "util")
 (load "propagator/load")
 (load "propagator/ui")

@@ -204,9 +204,9 @@
 		(accent (eq-get note 'accent))
 		(count 0))
 	;get the ascii value for the note
-	(display (attach-semitone pitch))
-	(display (cent-octave-count octave))
-	(display (attach-semitone pitch))
+	; (display (attach-semitone pitch))
+	; (display (cent-octave-count octave))
+	; (display (attach-semitone pitch))
 	(+ (attach-semitone pitch) (cent-octave-count octave) (get-accent-count accent))))
 
 (define (increase-octave note1 note2)
