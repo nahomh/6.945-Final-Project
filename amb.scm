@@ -49,7 +49,7 @@
   )
 )
 
-(define (amb-dispatch l)
+(define (amb-dispatch l note-amb)
   (let ((sym (car l)))
     (cond 
           ((eq? 'no-parallel-octaves sym) 
@@ -57,7 +57,7 @@
           (else #f)
     )
     (if (null? (cdr l))
-      #f (amb-dispatch (cdr l))
+      #f (amb-dispatch (cdr l) note-amb)
     )
   )
 )
@@ -72,11 +72,9 @@
     (display "note-amb: ")
     (display note-amb)
     (newline)
-    ; (require (distinct note-amb))
-    (amb-dispatch l)
-    (require (no-parallel-octaves note-amb))
+    (require (distinct note-amb))
+    (amb-dispatch l note-amb)
     note-amb
   ))
-)
 
-(gen-notes 5 '(3 0))
+(gen-notes 4 '(no-parallel-octaves))
