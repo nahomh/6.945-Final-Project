@@ -1,4 +1,6 @@
-;This is used for generating musical notes from the system . 
+; This is used for generating musical notes from the system . 
+; This file shows a sample of the generation using only 4 notes
+
 (load "load")
 (load "load-amb")
 (init)
@@ -83,3 +85,9 @@
   ))
 )
 
+(gen-notes 4 '())
+; ;;; Amb-Eval value:
+; ("c5" "c6" "c4" "e3")
+(gen-notes 4 '(no-parallel-octaves))
+; ;;; Amb-Eval value:
+; ("c5" "e3" "c6" "c4")
