@@ -62,6 +62,10 @@
       (cond 
             ((eq? 'no-parallel-octaves sym) 
               (require (no-parallel-octaves note-amb)))
+            ((eq? 'no-parallel-fifths sym) 
+              (require (no-parallel-fifths note-amb)))
+            ((eq? 'no-parallel-unisons sym) 
+              (require (no-parallel-unisons note-amb)))
             (else #f)
       )
       (amb-dispatch (cdr l) note-amb)
